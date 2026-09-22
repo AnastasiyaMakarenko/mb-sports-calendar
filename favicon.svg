@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <clipPath id="ball"><circle cx="32" cy="32" r="29"/></clipPath>
+    <radialGradient id="shine" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.7" stop-color="#f1f1f1"/>
+      <stop offset="1" stop-color="#cfcfcf"/>
+    </radialGradient>
+    <g id="seg">
+      <!-- шов от центрального пятиугольника к внешнему -->
+      <line x1="32" y1="21" x2="32" y2="11" stroke="#111" stroke-width="2.4" stroke-linecap="round"/>
+      <!-- внешний пятиугольник у края мяча -->
+      <polygon points="32,11 23.4,4.8 26.7,-5.3 37.3,-5.3 40.6,4.8" fill="#111"/>
+    </g>
+  </defs>
+  <circle cx="32" cy="32" r="29" fill="url(#shine)"/>
+  <g clip-path="url(#ball)">
+    <use href="#seg"/>
+    <use href="#seg" transform="rotate(72 32 32)"/>
+    <use href="#seg" transform="rotate(144 32 32)"/>
+    <use href="#seg" transform="rotate(216 32 32)"/>
+    <use href="#seg" transform="rotate(288 32 32)"/>
+  </g>
+  <!-- центральный пятиугольник -->
+  <polygon points="32,21 42.5,28.6 38.5,40.9 25.5,40.9 21.5,28.6" fill="#111"/>
+  <circle cx="32" cy="32" r="29" fill="none" stroke="#111" stroke-width="3"/>
+</svg>
