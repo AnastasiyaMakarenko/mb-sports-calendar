@@ -113,7 +113,7 @@
     $('#heroStats').innerHTML =
       '<div class="stat"><b>' + EVENTS.length + '</b><span>событий в календаре</span></div>' +
       '<div class="stat"><b>' + sp + ' / ' + es + '</b><span>спорт / киберспорт</span></div>' +
-      '<div class="stat"><b>' + top + '</b><span>с максимальным интересом</span></div>';
+      '<div class="stat"><b>' + top + '</b><span>самых популярных ★★★★★</span></div>';
   }
 
   /* ---------- Фильтры ---------- */
@@ -214,7 +214,7 @@
       html += '<button class="day__item" data-open="' + e.id + '">' +
         '<span class="day__bar" style="background:' + grad(e.c) + '"></span>' +
         '<span><span class="day__name">' + esc(e.t) + '</span><span class="day__meta" style="display:block">' + esc(e.g) + ' · ' + esc(e.d) + ' · ' + starts + '</span></span>' +
-        '<span class="day__i">' + e.i + '/5</span></button>';
+        '<span class="day__i" title="Популярность события: ' + e.i + ' из 5">' + '★'.repeat(e.i) + '</span></button>';
     });
     if (!one.length) html += '<p class="day__empty">В этот день разовых событий нет — ниже идущие сезоны.</p>';
     if (seasons.length) {
@@ -255,7 +255,8 @@
         (e.status !== '✔' ? '<span class="card__st" title="' + statusText(e.status) + '">' + e.status + '</span>' : '') +
         '<span class="card__g">' + esc(e.g) + '</span>' +
         '<h3 class="card__t">' + esc(e.t) + '</h3>' +
-        '<span class="card__foot"><span class="card__d" style="display:block">' + esc(cardDate(e, b)) + '</span>' +
+        '<span class="card__foot"><span class="card__stars" title="Популярность события: ' + e.i + ' из 5">' + '★'.repeat(e.i) + '<i>' + '★'.repeat(5 - e.i) + '</i></span>' +
+        '<span class="card__d" style="display:block">' + esc(cardDate(e, b)) + '</span>' +
         '<a class="card__link" href="' + LINE_URL + '" data-line>Перейти в линию</a></span>' +
         badge(e) + '</div>';
     }).join('');
@@ -302,12 +303,12 @@
       '<div class="modal__g">' + esc(e.g) + '</div>' +
       '<h3 class="modal__t" id="mTitle">' + esc(e.t) + '</h3>' +
       '<div class="modal__tags"><span class="tag tag--y">' + esc(e.d) + '</span><span class="tag">' + statusText(e.status) + '</span>' +
-      (e.rank ? '<span class="tag">№' + e.rank + ' в рейтинге интереса</span>' : '') + '</div>';
+      (e.rank ? '<span class="tag">№' + e.rank + ' в топе популярности</span>' : '') + '</div>';
     var rows = [
       ['Где проходит', e.p],
       ['Участники, фавориты, составы', e.who],
       ['Предпосылки и инфоповоды', e.info],
-      ['Интерес РУ-аудитории', stars(e.i) + ' ' + e.i + '/5', true],
+      ['Популярность события', stars(e.i), true],
       ['Вид спорта', (SPORT[e.s] || {}).label]
     ];
     var html = '<dl>';

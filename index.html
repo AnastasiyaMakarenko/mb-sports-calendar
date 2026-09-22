@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Календарь спортивных событий 2026–2027</title>
-  <meta name="description" content="Карта спортивных и киберспортивных событий с сентября 2026 по декабрь 2027: даты, места, фавориты, инфоповоды и рейтинг интереса.">
+  <meta name="description" content="Карта спортивных и киберспортивных событий с сентября 2026 по декабрь 2027: даты, места, фавориты, инфоповоды и популярность событий.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;0,800;0,900;1,800;1,900&display=swap" rel="stylesheet">
@@ -56,12 +56,12 @@
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.32 12.9l5.39 5.4-1.42 1.4-5.39-5.38A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg>
             <input type="search" id="q" placeholder="Поиск: турнир, команда, город…">
           </label>
-          <div class="interest" role="group" aria-label="Интерес РУ">
-            <span class="interest__label">Интерес РУ</span>
+          <div class="interest" role="group" aria-label="Популярность события">
+            <span class="interest__label">Популярность</span>
             <button class="interest__btn is-active" data-min="0">Все</button>
-            <button class="interest__btn" data-min="3">3+</button>
-            <button class="interest__btn" data-min="4">4+</button>
-            <button class="interest__btn" data-min="5">5</button>
+            <button class="interest__btn" data-min="3"><span class="interest__star">★</span>3+</button>
+            <button class="interest__btn" data-min="4"><span class="interest__star">★</span>4+</button>
+            <button class="interest__btn" data-min="5"><span class="interest__star">★</span>5</button>
           </div>
           <label class="toggle"><input type="checkbox" id="onlyConfirmed"><span></span>Только подтверждённые даты</label>
           <button class="reset" id="resetBtn" type="button">Сбросить</button>
@@ -100,7 +100,7 @@
         <div class="block__head block__head--row">
           <h2 class="h2" id="monthTitle">Турниры месяца</h2>
           <div class="sort">
-            <button class="sort__btn is-active" data-sort="interest">По интересу</button>
+            <button class="sort__btn is-active" data-sort="interest">По популярности</button>
             <button class="sort__btn" data-sort="date">По дате</button>
           </div>
         </div>
@@ -111,8 +111,8 @@
       <!-- Рейтинг -->
       <section class="block" id="rating">
         <div class="block__head">
-          <h2 class="h2">Топ-30 по интересу для РУ-игроков</h2>
-          <p class="muted">Экспертная оценка: популярность вида, участие россиян, трансляции и глубина линии.</p>
+          <h2 class="h2">Топ-30 самых популярных событий</h2>
+          <p class="muted">Учитываем популярность вида спорта, участие наших спортсменов, трансляции и глубину линии.</p>
         </div>
         <ol class="rating" id="ratingList"></ol>
       </section>
@@ -121,7 +121,7 @@
       <section class="block" id="russia">
         <div class="block__head">
           <h2 class="h2">Допуск российских спортсменов</h2>
-          <p class="muted">Статус на 21.09.2026 — влияет на интерес и линию.</p>
+          <p class="muted">Статус на 21.09.2026.</p>
         </div>
         <div class="rus" id="rusList"></div>
       </section>
