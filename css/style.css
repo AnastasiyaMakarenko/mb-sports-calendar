@@ -30,7 +30,7 @@ a { color: inherit; }
 /* ---------- Бонус ---------- */
 .bonus {
   display: flex; align-items: center; gap: 14px; padding: 12px 12px 12px 26px; margin-bottom: 14px;
-  border-radius: 18px; text-decoration: none; color: #111;
+  border-radius: 20px; text-decoration: none; color: #111;
   background: linear-gradient(90deg, var(--yellow) 0%, #ffe45a 45%, var(--yellow-2) 100%);
   box-shadow: 0 10px 30px rgba(255,190,0,.25);
 }
@@ -39,7 +39,7 @@ a { color: inherit; }
 .bonus__sum { font-weight: 900; font-size: 34px; letter-spacing: -1px; }
 .bonus__btn { margin-left: auto; padding: 16px 28px; border-radius: 12px; background: #151515; color: var(--yellow); font-weight: 900; font-style: italic; text-transform: uppercase; white-space: nowrap; }
 
-.sheet { background: #fff; border-radius: 22px; overflow: hidden; padding-bottom: 28px; }
+.sheet { background: #fff; border-radius: 20px; overflow: hidden; padding-bottom: 28px; }
 
 /* ---------- Hero ---------- */
 .hero { display: grid; grid-template-columns: 1.05fr 1fr; min-height: 300px; }
@@ -59,7 +59,7 @@ a { color: inherit; }
 .ball--4 { width: 64px; height: 64px; top: 70px; left: 0; background: radial-gradient(circle at 35% 30%, #fff 0, #bbb 45%, #333 100%); }
 .cal-block {
   position: absolute; top: 50%; left: 50%; width: 220px; height: 220px; transform: translate(-45%, -46%) rotate(-6deg);
-  background: linear-gradient(160deg, #2b2b2b, #050505); border-radius: 22px;
+  background: linear-gradient(160deg, #2b2b2b, #050505); border-radius: 20px;
   box-shadow: 0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.12);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
@@ -226,7 +226,7 @@ a { color: inherit; }
 .modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; }
 .modal[hidden] { display: none; }
 .modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.6); backdrop-filter: blur(3px); }
-.modal__box { position: relative; width: min(600px, 100%); max-height: 92vh; overflow: auto; background: #fff; border-radius: 22px; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+.modal__box { position: relative; width: min(600px, 100%); max-height: 92vh; overflow: auto; background: #fff; border-radius: 20px; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
 .modal__close { position: absolute; top: 12px; right: 12px; z-index: 2; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(0,0,0,.35); color: #fff; font-size: 22px; line-height: 1; }
 .modal__head { position: relative; overflow: hidden; color: #fff; padding: 22px 24px 20px; background: var(--g); }
 .modal__head .card__wm { font-size: 150px; }
