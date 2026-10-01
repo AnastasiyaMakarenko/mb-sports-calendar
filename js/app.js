@@ -2,13 +2,11 @@
   'use strict';
 
   /* ---------- Настройки ---------- */
-  var LINE_URL = '#';          // ссылка «Перейти в линию» (подставьте адрес линии)
+  var LINE_URL = '#';          // ссылка «Перейти в линию»: клик по карточке ведёт сюда
   var BONUS_URL = '#';         // ссылка кнопки «Забрать бонус»
-  var DATA_DATE = '01.10.2026';// когда последний раз обновляли события
   var FIRST_MONTH = '2026-09';
   var LAST_MONTH = '2027-12';
   var CARDS_STEP = 12;         // сколько карточек показывать сразу
-  var RATING_SHORT = 10;       // сколько строк топа показывать сразу
 
   var COLORS = {
     rpl: ['#7b2ff7', '#e0245e'], cup: ['#c81d4e', '#6a11cb'], rus: ['#1d4ed8', '#dc2626'],
@@ -46,22 +44,15 @@
   };
 
   var MONTHS_NOM = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
-  var MONTHS_GEN = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
   var MONTHS_SHORT = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
-  var WD = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
 
   var EVENTS = window.EVENTS;
   var SPORTS = window.SPORTS;
   var SPORT = {};
   SPORTS.forEach(function (s) { SPORT[s.key] = s; });
-  var BY_ID = {};
-  EVENTS.forEach(function (e) { if (!e.en) e.en = e.st; BY_ID[e.id] = e; });
+  EVENTS.forEach(function (e) { if (!e.en) e.en = e.st; });
 
-  /* ---------- Состояние ---------- */
-  var state = {
-    cat: 'all', sports: {}, minI: 0, confirmed: false, q: '',
-    month: null, day: null, shown: CARDS_STEP, ratingAll: false
-  };
+  var state = { cat: 'all', sports: {}, minI: 0, confirmed: false, q: '', month: null, shown: CARDS_STEP };
 
   /* ---------- Утилиты ---------- */
   function $(s) { return document.querySelector(s); }
@@ -76,15 +67,12 @@
     }
     return out;
   })();
-  // «Сегодня» берём с часов пользователя, а не фиксируем в коде
-  var TODAY = (function () {
-    var d = new Date();
-    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  // «Сегодня» берём с часов пользователя: сайт всегда открывается на актуальном месяце
+  var TODAY = (function () { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); })();
+  var START_MONTH = (function () {
+    var m = TODAY.slice(0, 7);
+    return m < FIRST_MONTH ? FIRST_MONTH : (m > LAST_MONTH ? LAST_MONTH : m);
   })();
-  var FIRST_DAY = FIRST_MONTH + '-01';
-  var LAST_DAY = LAST_MONTH + '-31';
-  var IN_RANGE = TODAY >= FIRST_DAY && TODAY <= LAST_DAY;   // попадает ли сегодняшний день в календарь
-  var START_MONTH = IN_RANGE ? TODAY.slice(0, 7) : (TODAY < FIRST_DAY ? FIRST_MONTH : LAST_MONTH);
 
   function daysIn(y, m) { return new Date(y, m, 0).getDate(); }
   function monthBounds(key) { return [key + '-01', key + '-' + pad(daysIn(+key.slice(0, 4), +key.slice(5, 7)))]; }
@@ -92,14 +80,11 @@
   function grad(c) { var g = COLORS[c] || ['#444', '#111']; return 'linear-gradient(135deg,' + g[0] + ' 0%,' + g[1] + ' 100%)'; }
   function sportCat(e) { return SPORT[e.s] ? SPORT[e.s].cat : 'sport'; }
   function wm(e) { return (e.t.split(/[\s:–-]+/)[0] || '').slice(0, 10); }
-  function starsHtml(i) { return '★'.repeat(i) + '<i>' + '★'.repeat(5 - i) + '</i>'; }
-  function dayName(ds) {
-    var d = new Date(ds + 'T00:00:00');
-    return d.getDate() + ' ' + MONTHS_GEN[d.getMonth()] + ', ' + WD[d.getDay()];
-  }
-  function statusText(s) { return s === '✔' ? 'Дата подтверждена' : s === '≈' ? 'Дата ожидается' : 'Дата не объявлена'; }
   function byPopularity(a, b) { return (b.i - a.i) || ((a.rank || 99) - (b.rank || 99)) || ((a.season ? 1 : 0) - (b.season ? 1 : 0)) || (a.st < b.st ? -1 : 1); }
-  function filtersActive() { return state.cat !== 'all' || Object.keys(state.sports).length || state.minI || state.confirmed || state.q; }
+  function activeCount() {
+    return (state.cat !== 'all' ? 1 : 0) + Object.keys(state.sports).length +
+      (state.minI ? 1 : 0) + (state.confirmed ? 1 : 0) + (state.q ? 1 : 0);
+  }
 
   /* ---------- Фильтрация ---------- */
   function pass(e) {
@@ -113,192 +98,87 @@
     }
     return true;
   }
-  function filtered() { return EVENTS.filter(pass); }
 
-  /* ---------- Виды спорта ---------- */
+  /* ---------- Панель фильтров ---------- */
   function renderChips() {
     var list = SPORTS.filter(function (s) { return state.cat === 'all' || s.cat === state.cat; });
     $('#sportChips').innerHTML = list.map(function (s) {
       return '<button class="chip' + (state.sports[s.key] ? ' is-active' : '') + '" data-sport="' + s.key + '">' +
         '<i style="background:' + SPORT_COLOR[s.key] + '"></i>' + esc(s.label) + '</button>';
     }).join('');
-    $('#resetBtn').hidden = !filtersActive();
+    var n = activeCount(), badge = $('#filtersCount');
+    badge.hidden = !n;
+    badge.textContent = n;
+    $('#resetBtn').hidden = !n;
+    $('#filtersBtn').classList.toggle('is-on', !!n);
+  }
+  function openFilters(open) {
+    $('#fpanel').hidden = !open;
+    $('#filtersBtn').setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.classList.toggle('filters-open', open);
   }
 
-  /* ---------- Лента месяцев = карта года ---------- */
+  /* ---------- Месяцы ---------- */
   function renderMonths() {
-    var list = filtered().filter(function (e) { return !e.season; });
-    var counts = MONTHS.map(function (m) {
-      var b = monthBounds(m.key);
-      return list.filter(function (e) { return overlaps(e, b[0], b[1]); }).length;
-    });
-    var max = Math.max.apply(null, counts.concat(1));
     $('#months').innerHTML = MONTHS.map(function (m, idx) {
-      var n = counts[idx];
-      var h = n ? Math.max(12, Math.round(n / max * 100)) : 0;
       var past = monthBounds(m.key)[1] < TODAY;
-      return '<button class="mon' + (m.key === state.month ? ' is-active' : '') + (n ? '' : ' is-empty') + (past ? ' is-past' : '') + '" data-month="' + m.key + '" title="' + MONTHS_NOM[m.m - 1] + ' ' + m.y + ': ' + n + (past ? ' (месяц прошёл)' : '') + '">' +
-        '<span class="mon__bar"><i style="height:' + h + '%"></i></span>' +
-        '<span class="mon__n">' + (n || '–') + '</span>' +
-        '<span class="mon__name">' + MONTHS_SHORT[m.m - 1] + '</span>' +
-        '<span class="mon__y">' + (m.m === 1 || idx === 0 ? m.y : '&nbsp;') + '</span></button>';
+      return '<button class="mon' + (m.key === state.month ? ' is-active' : '') + (past ? ' is-past' : '') + '" data-month="' + m.key + '">' +
+        MONTHS_SHORT[m.m - 1] + (m.m === 1 || idx === 0 ? '<small>' + m.y + '</small>' : '') + '</button>';
     }).join('');
     var nav = $('#months'), act = $('.mon.is-active');
     if (act) nav.scrollLeft = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
   }
 
-  /* ---------- Сетка дней ---------- */
-  function renderDays() {
-    var y = +state.month.slice(0, 4), m = +state.month.slice(5, 7);
-    var offset = (new Date(y, m - 1, 1).getDay() + 6) % 7;
-    var list = filtered().filter(function (e) { return !e.season; });
-    var html = '';
-    for (var p = 0; p < offset; p++) html += '<span class="d d--pad"></span>';
-    for (var d = 1; d <= daysIn(y, m); d++) {
-      var ds = state.month + '-' + pad(d);
-      var evs = list.filter(function (e) { return overlaps(e, ds, ds); }).sort(byPopularity);
-      var dots = evs.slice(0, 4).map(function (e) { return '<i style="background:' + SPORT_COLOR[e.s] + '"></i>'; }).join('');
-      var wd = new Date(y, m - 1, d).getDay();
-      html += '<button class="d' + (ds === TODAY ? ' is-today' : '') + (ds === state.day ? ' is-sel' : '') +
-        (ds < TODAY ? ' is-past' : '') + (wd === 0 || wd === 6 ? ' is-we' : '') + (evs.length ? '' : ' is-none') +
-        '" data-day="' + ds + '" aria-label="' + esc(dayName(ds)) + ': событий ' + evs.length + '">' +
-        '<b>' + d + '</b><span class="d__dots">' + dots + '</span></button>';
-    }
-    $('#days').innerHTML = html;
-  }
-
-  /* ---------- Карточки (месяц или выбранный день) ---------- */
-  function cardDate(e) { return e.d; }
+  /* ---------- Карточки месяца ---------- */
   function badge(e) {
     if (e.rank && e.rank <= 10) return '<span class="badge badge--top">Топ</span>';
-    if (e.rank) return '<span class="badge">стоит<br>посмотреть</span>';
+    if (e.rank) return '<span class="badge">стоит посмотреть</span>';
     return '';
   }
-  function cardHtml(e, b) {
-    return '<div class="card" role="button" tabindex="0" data-open="' + e.id + '" style="--g:' + grad(e.c) + '">' +
+  function cardHtml(e) {
+    return '<a class="card' + (e.rank ? ' has-badge' : '') + '" href="' + LINE_URL + '" data-line style="--g:' + grad(e.c) + '" title="' + esc(e.t) + ' · ' + esc(e.d) + '">' +
       '<span class="card__ring"></span><span class="card__wm">' + esc(wm(e)) + '</span>' +
+      badge(e) +
       '<span class="card__g">' + esc(e.g) + '</span>' +
-      '<h3 class="card__t">' + esc(e.t) + '</h3>' +
-      '<span class="card__foot">' +
-      '<span class="card__stars" title="Популярность: ' + e.i + ' из 5">' + starsHtml(e.i) + '</span>' +
-      '<span class="card__d">' + esc(cardDate(e, b)) + (e.status !== '✔' ? ' <span class="card__st" title="' + statusText(e.status) + '">' + e.status + '</span>' : '') + '</span>' +
-      '<a class="card__link" href="' + LINE_URL + '" data-line>Перейти в линию</a></span>' +
-      badge(e) + '</div>';
+      '<span class="card__t">' + esc(e.t) + '</span>' +
+      '<span class="card__link">Перейти в линию</span></a>';
   }
   function renderList() {
-    var list, b = null, title;
+    var b = monthBounds(state.month);
     var m = +state.month.slice(5, 7), y = state.month.slice(0, 4);
-    var seasonsBox = $('#seasons');
-    if (state.day) {
-      var all = filtered().filter(function (e) { return overlaps(e, state.day, state.day); });
-      list = all.filter(function (e) { return !e.season; }).sort(byPopularity);
-      var seasons = all.filter(function (e) { return e.season; }).sort(byPopularity);
-      title = dayName(state.day);
-      seasonsBox.hidden = !seasons.length;
-      seasonsBox.innerHTML = '<details><summary>Также в этот день идут сезоны лиг: ' + seasons.length + '</summary><div class="seasons__list">' +
-        seasons.map(function (e) { return '<button data-open="' + e.id + '">' + esc(e.t) + '</button>'; }).join('') + '</div></details>';
-    } else {
-      b = monthBounds(state.month);
-      list = filtered().filter(function (e) { return overlaps(e, b[0], b[1]); }).sort(byPopularity);
-      title = MONTHS_NOM[m - 1] + ' ' + y;
-      seasonsBox.hidden = true;
-    }
-    $('#listTitle').innerHTML = esc(title) + ' <small>' + list.length + '</small>';
-    $('#backToMonth').hidden = !state.day;
-    $('#todayBtn').hidden = !IN_RANGE || state.day === TODAY;
+    var list = EVENTS.filter(function (e) { return pass(e) && overlaps(e, b[0], b[1]); }).sort(byPopularity);
+    $('#listTitle').textContent = MONTHS_NOM[m - 1] + ' ' + y;
     $('#cardsEmpty').hidden = list.length > 0;
-    $('#cards').innerHTML = list.slice(0, state.shown).map(function (e) { return cardHtml(e, b); }).join('');
+    $('#cards').innerHTML = list.slice(0, state.shown).map(cardHtml).join('');
     var rest = list.length - state.shown;
     var more = $('#moreCards');
     more.hidden = rest <= 0;
     more.textContent = 'Показать ещё ' + Math.min(rest, CARDS_STEP) + ' из ' + rest;
   }
 
-  /* ---------- Топ ---------- */
-  function renderRating() {
-    var rows = state.ratingAll ? window.RATING : window.RATING.slice(0, RATING_SHORT);
-    $('#ratingList').innerHTML = rows.map(function (r) {
-      return '<li data-open="' + (r.id || '') + '"><span class="rating__n">' + r.n + '</span>' +
-        '<span class="rating__t">' + esc(r.t) + '<small>' + esc(r.s) + '</small></span>' +
-        '<span class="rating__d">' + esc(r.d) + '</span></li>';
-    }).join('');
-    $('#moreRating').textContent = state.ratingAll ? 'Свернуть' : 'Показать весь топ-30';
-  }
+  function renderAll() { state.shown = CARDS_STEP; renderChips(); renderMonths(); renderList(); }
 
-  /* ---------- Справка ---------- */
-  function renderInfo() {
-    $('#rusList').innerHTML = window.RUSSIA.map(function (r) {
-      return '<div class="rus__i ' + r.tone + '"><b>' + esc(r.k) + '</b><span>' + esc(r.v) + '</span></div>';
-    }).join('');
-    $('#undated').innerHTML = window.UNDATED.map(function (u) {
-      return '<div class="undated__i"><span class="undated__bar" style="background:' + SPORT_COLOR[u.s] + '"></span><div>' +
-        '<div class="undated__t">' + esc(u.t) + '</div>' +
-        '<div class="undated__w">' + esc(u.when) + ' · <span class="stars">' + '★'.repeat(u.i) + '</span></div>' +
-        '<div class="undated__x">' + esc(u.info) + '</div></div></div>';
-    }).join('');
-    $('#pendingList').innerHTML = window.PENDING.map(function (p) {
-      return '<div class="timeline__i"><div class="timeline__w">' + esc(p.when) + '</div><div class="timeline__x">' + esc(p.what) + '</div></div>';
-    }).join('');
+  function resetFilters() {
+    state.cat = 'all'; state.sports = {}; state.minI = 0; state.confirmed = false; state.q = '';
+    $('#q').value = ''; $('#onlyConfirmed').checked = false;
+    $all('.seg__btn').forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-cat') === 'all'); });
+    $all('.star-btn').forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-min') === '0'); });
+    renderAll();
   }
-
-  /* ---------- Расписание турнира ----------
-     Выводим только то, что опубликовали организаторы (поле sched в data.js).
-     Если расписания ещё нет — честно пишем об этом и даём ссылку на календарь турнира. */
-  function schedHtml(e) {
-    if (e.sched && e.sched.length) {
-      var past = 0;
-      var rows = e.sched.map(function (r) {
-        var done = r.iso && r.iso < TODAY;
-        if (done) past++;
-        return '<li class="sch__i' + (done ? ' is-past' : '') + '"><span class="sch__d">' + esc(r.d) + '</span>' +
-          '<span class="sch__t">' + esc(r.t) + (r.note ? '<small>' + esc(r.note) + '</small>' : '') + '</span></li>';
-      }).join('');
-      return '<div class="sch"><h4>Расписание<small>' + e.sched.length + (past ? ', прошло ' + past : '') + '</small></h4><ul class="sch__list">' + rows + '</ul>' +
-        (e.calSrc ? '<a class="sch__src" href="' + esc(e.calSrc) + '" target="_blank" rel="noopener">Полный календарь турнира</a>' : '') + '</div>';
-    }
-    return '<div class="sch sch--none"><h4>Расписание матчей</h4>' +
-      '<p>Организатор ещё не опубликовал сетку матчей по дням' + (e.ann ? ': ' + esc(e.ann.toLowerCase()) : '') + '. Мы не придумываем пары и даты — блок появится после официального анонса.</p>' +
-      (e.calSrc || e.src ? '<a class="sch__src" href="' + esc(e.calSrc || e.src) + '" target="_blank" rel="noopener">Страница турнира</a>' : '') + '</div>';
-  }
-
-  /* ---------- Окно события ---------- */
-  function openEvent(id) {
-    var e = BY_ID[id];
-    if (!e) return;
-    var head = $('#mHead');
-    head.style.setProperty('--g', grad(e.c));
-    head.innerHTML = '<span class="card__ring"></span><span class="card__wm">' + esc(wm(e)) + '</span>' +
-      '<div class="modal__g">' + esc(e.g) + '</div>' +
-      '<h3 class="modal__t" id="mTitle">' + esc(e.t) + '</h3>' +
-      '<div class="modal__tags"><span class="tag tag--y">' + esc(e.d) + '</span>' +
-      '<span class="tag tag--stars" title="Популярность события">' + starsHtml(e.i) + '</span>' +
-      (e.status !== '✔' ? '<span class="tag">' + statusText(e.status) + '</span>' : '') +
-      (e.rank ? '<span class="tag">№' + e.rank + ' в топе</span>' : '') + '</div>';
-    var rows = [['Даты', e.d], ['Где', e.p], ['Участники', e.who], ['Главное', e.info], ['Ждём анонса', e.ann]];
-    $('#mBody').innerHTML = '<dl>' + rows.filter(function (r) { return r[1]; }).map(function (r) {
-      return '<div class="kv' + (r[0] === 'Ждём анонса' ? ' kv--ann' : '') + '"><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>';
-    }).join('') + '</dl>' + schedHtml(e) +
-      '<div class="modal__cta"><a class="btn btn--dark" href="' + LINE_URL + '" data-line>Перейти в линию</a>' +
-      '<button class="btn btn--ghost" data-goto="' + e.id + '">В календаре</button>' +
-      (e.src ? '<a class="btn btn--link" href="' + esc(e.src) + '" target="_blank" rel="noopener">Источник</a>' : '') + '</div>';
-    $('#modal').hidden = false;
-    document.body.style.overflow = 'hidden';
-    $('.modal__close').focus();
-  }
-  function closeModal() { $('#modal').hidden = true; document.body.style.overflow = ''; }
-
-  /* ---------- Рендер ---------- */
-  function renderAll() { state.shown = CARDS_STEP; renderChips(); renderMonths(); renderDays(); renderList(); }
-  function setMonth(key) { state.month = key; state.day = null; }
 
   /* ---------- Обработчики ---------- */
   document.addEventListener('click', function (ev) {
-    var t = ev.target;
-    var line = t.closest('[data-line]');
-    if (line) { ev.stopPropagation(); if (LINE_URL === '#') ev.preventDefault(); return; }
+    var t = ev.target, el;
+
+    // клик по карточке и по кнопке бонуса ведёт на внешние ссылки
+    if (t.closest('[data-line]') && LINE_URL === '#') { ev.preventDefault(); return; }
     if (t.closest('[data-bonus]') && BONUS_URL === '#') { ev.preventDefault(); return; }
 
-    var el;
+    if (t.closest('#filtersBtn')) { openFilters($('#fpanel').hidden); return; }
+    if (t.closest('#filtersClose') || t.closest('#filtersApply')) { openFilters(false); return; }
+    if (t.closest('#resetBtn') || t.closest('#resetBtn2')) { resetFilters(); return; }
+    if (!t.closest('.filters') && !$('#fpanel').hidden) openFilters(false);
+
     if ((el = t.closest('[data-cat]'))) {
       state.cat = el.getAttribute('data-cat'); state.sports = {};
       $all('.seg__btn').forEach(function (b) { b.classList.toggle('is-active', b === el); });
@@ -314,39 +194,15 @@
       $all('.star-btn').forEach(function (b) { b.classList.toggle('is-active', b === el); });
       return renderAll();
     }
-    if ((el = t.closest('[data-month]'))) { setMonth(el.getAttribute('data-month')); return renderAll(); }
-    if ((el = t.closest('[data-day]'))) {
-      var ds = el.getAttribute('data-day');
-      state.day = state.day === ds ? null : ds;
-      state.shown = CARDS_STEP;
-      renderDays(); renderList();
-      return;
-    }
-    if (t.closest('#backToMonth')) { state.day = null; state.shown = CARDS_STEP; renderDays(); renderList(); return; }
-    if (t.closest('#todayBtn')) {
-      state.month = TODAY.slice(0, 7); state.day = TODAY; state.shown = CARDS_STEP;
-      renderMonths(); renderDays(); renderList(); return;
+    if ((el = t.closest('[data-month]'))) {
+      state.month = el.getAttribute('data-month'); state.shown = CARDS_STEP;
+      renderMonths(); renderList(); return;
     }
     if (t.closest('#moreCards')) { state.shown += CARDS_STEP; renderList(); return; }
-    if (t.closest('#moreRating')) { state.ratingAll = !state.ratingAll; renderRating(); return; }
-    if ((el = t.closest('[data-goto]'))) {
-      var e = BY_ID[el.getAttribute('data-goto')];
-      closeModal();
-      var start = e.st < FIRST_MONTH + '-01' ? TODAY : e.st;
-      state.month = start.slice(0, 7); state.day = start;
-      renderAll();
-      $('#calendar').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-    }
-    if ((el = t.closest('[data-open]')) && el.getAttribute('data-open')) { openEvent(el.getAttribute('data-open')); return; }
-    if (t.closest('[data-close]')) closeModal();
   });
 
   document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape' && !$('#modal').hidden) closeModal();
-    if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.classList && ev.target.classList.contains('card')) {
-      ev.preventDefault(); openEvent(ev.target.getAttribute('data-open'));
-    }
+    if (ev.key === 'Escape' && !$('#fpanel').hidden) openFilters(false);
   });
 
   var qTimer;
@@ -356,19 +212,9 @@
     qTimer = setTimeout(function () { state.q = v.trim().toLowerCase(); renderAll(); }, 150);
   });
   $('#onlyConfirmed').addEventListener('change', function () { state.confirmed = this.checked; renderAll(); });
-  $('#resetBtn').addEventListener('click', function () {
-    state.cat = 'all'; state.sports = {}; state.minI = 0; state.confirmed = false; state.q = '';
-    $('#q').value = ''; $('#onlyConfirmed').checked = false;
-    $all('.seg__btn').forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-cat') === 'all'); });
-    $all('.star-btn').forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-min') === '0'); });
-    renderAll();
-  });
   $('[data-bonus]').setAttribute('href', BONUS_URL);
 
-  // стартуем на текущем месяце и сразу открываем сегодняшний день
+  /* ---------- Старт ---------- */
   state.month = START_MONTH;
-  state.day = IN_RANGE ? TODAY : null;
-  var foot = $('.foot p');
-  if (foot) foot.textContent = '18+ | Данные на ' + DATA_DATE + ' из открытых источников. ✔ — дата подтверждена, ≈ — ожидается, ? — не объявлена. Даты могут меняться.';
-  renderRating(); renderInfo(); renderAll();
+  renderAll();
 })();

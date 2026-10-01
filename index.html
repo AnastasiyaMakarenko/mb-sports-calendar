@@ -4,19 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Календарь спортивных событий 2026–2027</title>
-  <meta name="description" content="Все главные спортивные и киберспортивные события с сентября 2026 по декабрь 2027: даты, места, фавориты и инфоповоды.">
+  <meta name="description" content="Все главные спортивные и киберспортивные события с сентября 2026 по декабрь 2027.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon.png" type="image/png" sizes="64x64">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="theme-color" content="#161616">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;0,800;0,900;1,800;1,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=2026-10-02">
 </head>
 <body>
-  <div class="bg-deco" aria-hidden="true"></div>
-
   <div class="page">
     <a class="bonus" href="#" data-bonus>
       <span class="bonus__big">Бонус</span>
@@ -44,100 +42,70 @@
         </div>
       </header>
 
-      <!-- Фильтры -->
+      <!-- Все фильтры спрятаны под одну кнопку -->
       <section class="filters" aria-label="Фильтры">
-        <div class="filters__top">
-          <div class="seg" role="tablist">
-            <button class="seg__btn is-active" data-cat="all">Все</button>
-            <button class="seg__btn" data-cat="sport">Спорт</button>
-            <button class="seg__btn" data-cat="esport">Киберспорт</button>
+        <button class="fbtn" id="filtersBtn" type="button" aria-expanded="false" aria-controls="fpanel">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M3 5h18v2.2l-7 6.6V21l-4-2.2v-5l-7-6.6V5Z"/></svg>
+          Фильтры<span class="fbtn__n" id="filtersCount" hidden></span>
+        </button>
+        <button class="reset" id="resetBtn" type="button" hidden>Сбросить</button>
+
+        <div class="fpanel" id="fpanel" hidden>
+          <div class="fpanel__head">
+            <b>Фильтры</b>
+            <button class="fpanel__close" id="filtersClose" type="button" aria-label="Закрыть">×</button>
           </div>
+
           <label class="search">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.32 12.9l5.39 5.4-1.42 1.4-5.39-5.38A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg>
             <input type="search" id="q" placeholder="Найти турнир или команду">
           </label>
-        </div>
-        <div class="chips" id="sportChips"></div>
-        <div class="filters__more">
-          <details class="more">
-            <summary>Ещё фильтры</summary>
-            <div class="more__body">
-              <div class="stars-filter" role="group" aria-label="Популярность события">
-                <span>Популярность</span>
-                <button class="star-btn is-active" data-min="0">Любая</button>
-                <button class="star-btn" data-min="3">★ 3+</button>
-                <button class="star-btn" data-min="4">★ 4+</button>
-                <button class="star-btn" data-min="5">★ 5</button>
-              </div>
-              <label class="toggle"><input type="checkbox" id="onlyConfirmed"><span></span>Только точные даты</label>
+
+          <div class="fgroup">
+            <span class="fgroup__t">Раздел</span>
+            <div class="seg" role="tablist">
+              <button class="seg__btn is-active" data-cat="all">Все</button>
+              <button class="seg__btn" data-cat="sport">Спорт</button>
+              <button class="seg__btn" data-cat="esport">Киберспорт</button>
             </div>
-          </details>
-          <button class="reset" id="resetBtn" type="button" hidden>Сбросить фильтры</button>
+          </div>
+
+          <div class="fgroup">
+            <span class="fgroup__t">Виды спорта</span>
+            <div class="chips" id="sportChips"></div>
+          </div>
+
+          <div class="fgroup">
+            <span class="fgroup__t">Популярность</span>
+            <div class="stars-filter" role="group" aria-label="Популярность события">
+              <button class="star-btn is-active" data-min="0">Любая</button>
+              <button class="star-btn" data-min="3">★ 3+</button>
+              <button class="star-btn" data-min="4">★ 4+</button>
+              <button class="star-btn" data-min="5">★ 5</button>
+            </div>
+          </div>
+
+          <label class="toggle"><input type="checkbox" id="onlyConfirmed"><span></span>Только точные даты</label>
+
+          <div class="fpanel__foot">
+            <button class="btn btn--ghost" id="resetBtn2" type="button">Сбросить всё</button>
+            <button class="btn btn--dark" id="filtersApply" type="button">Показать</button>
+          </div>
         </div>
       </section>
 
-      <!-- Месяцы (карта года) + календарь + турниры -->
+      <!-- Месяцы и турниры -->
       <section class="block" id="calendar">
         <nav class="months" id="months" aria-label="Месяцы"></nav>
-
-        <div class="cal" id="cal">
-          <div class="cal__wd"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
-          <div class="cal__days" id="days"></div>
-        </div>
-
-        <div class="list-head">
-          <h2 class="h2" id="listTitle"></h2>
-          <span class="list-head__btns">
-            <button class="back" id="todayBtn" type="button" hidden>Сегодня</button>
-            <button class="back" id="backToMonth" type="button" hidden>← Весь месяц</button>
-          </span>
-        </div>
-        <div class="seasons" id="seasons" hidden></div>
+        <h2 class="h2" id="listTitle"></h2>
         <div class="cards" id="cards"></div>
         <p class="empty" id="cardsEmpty" hidden>Событий не найдено — попробуйте сбросить фильтры.</p>
         <button class="more-btn" id="moreCards" type="button" hidden></button>
       </section>
-
-      <!-- Топ -->
-      <section class="block" id="rating">
-        <h2 class="h2">Топ самых популярных</h2>
-        <ol class="rating" id="ratingList"></ol>
-        <button class="more-btn" id="moreRating" type="button">Показать весь топ-30</button>
-      </section>
-
-      <!-- Справка -->
-      <section class="block info">
-        <details class="acc">
-          <summary>Даты уточняются</summary>
-          <div class="acc__body pending">
-            <div id="undated"></div>
-            <div class="timeline" id="pendingList"></div>
-          </div>
-        </details>
-        <details class="acc">
-          <summary>Допуск российских спортсменов</summary>
-          <div class="acc__body rus" id="rusList"></div>
-        </details>
-      </section>
     </main>
-
-    <footer class="foot">
-      <p>18+ | Данные на 21.09.2026 из открытых источников. ✔ — дата подтверждена, ≈ — ожидается, ? — не объявлена. Даты могут меняться.</p>
-    </footer>
   </div>
 
-  <!-- Окно события -->
-  <div class="modal" id="modal" hidden>
-    <div class="modal__backdrop" data-close></div>
-    <article class="modal__box" role="dialog" aria-modal="true" aria-labelledby="mTitle">
-      <button class="modal__close" data-close aria-label="Закрыть">×</button>
-      <div class="modal__head" id="mHead"></div>
-      <div class="modal__body" id="mBody"></div>
-    </article>
-  </div>
-
-  <!-- ?v= меняйте при каждом обновлении данных, чтобы браузеры не отдавали старый файл из кэша -->
-  <script src="js/data.js?v=2026-10-01"></script>
-  <script src="js/app.js?v=2026-10-01"></script>
+  <script src="js/data.js?v=2026-10-02"></script>
+  <script src="js/app.js?v=2026-10-02"></script>
 </body>
 </html>
