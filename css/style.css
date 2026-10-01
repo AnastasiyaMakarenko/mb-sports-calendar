@@ -122,6 +122,7 @@ a { color: inherit; }
   transition: transform .15s, box-shadow .15s;
 }
 .card:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(0,0,0,.22); }
+.card__ico { position: absolute; right: 10px; bottom: 6px; width: 86px; height: 86px; color: #fff; opacity: .2; pointer-events: none; }
 .card__wm { position: absolute; right: -10px; bottom: -22px; font-size: 110px; font-weight: 900; line-height: 1; color: rgba(255,255,255,.13); letter-spacing: -6px; pointer-events: none; white-space: nowrap; text-transform: uppercase; }
 .card__g { position: relative; font-size: 11px; opacity: .85; }
 .card__t { position: relative; margin-top: 4px; font-size: 20px; line-height: 1.05; font-weight: 800; text-transform: uppercase; }
