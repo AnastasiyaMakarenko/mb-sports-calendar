@@ -52,7 +52,7 @@
   SPORTS.forEach(function (s) { SPORT[s.key] = s; });
   EVENTS.forEach(function (e) { if (!e.en) e.en = e.st; });
 
-  var state = { cat: 'all', sports: {}, minI: 0, confirmed: false, q: '', month: null, shown: CARDS_STEP };
+  var state = { sports: {}, month: null, shown: CARDS_STEP };
 
   /* ---------- Утилиты ---------- */
   function $(s) { return document.querySelector(s); }
@@ -78,31 +78,18 @@
   function monthBounds(key) { return [key + '-01', key + '-' + pad(daysIn(+key.slice(0, 4), +key.slice(5, 7)))]; }
   function overlaps(e, a, b) { return e.st <= b && e.en >= a; }
   function grad(c) { var g = COLORS[c] || ['#444', '#111']; return 'linear-gradient(135deg,' + g[0] + ' 0%,' + g[1] + ' 100%)'; }
-  function sportCat(e) { return SPORT[e.s] ? SPORT[e.s].cat : 'sport'; }
   function wm(e) { return (e.t.split(/[\s:–-]+/)[0] || '').slice(0, 10); }
   function byPopularity(a, b) { return (b.i - a.i) || ((a.rank || 99) - (b.rank || 99)) || ((a.season ? 1 : 0) - (b.season ? 1 : 0)) || (a.st < b.st ? -1 : 1); }
-  function activeCount() {
-    return (state.cat !== 'all' ? 1 : 0) + Object.keys(state.sports).length +
-      (state.minI ? 1 : 0) + (state.confirmed ? 1 : 0) + (state.q ? 1 : 0);
-  }
+  function activeCount() { return Object.keys(state.sports).length; }
 
-  /* ---------- Фильтрация ---------- */
+  /* ---------- Фильтрация: только по видам спорта ---------- */
   function pass(e) {
-    if (state.cat !== 'all' && sportCat(e) !== state.cat) return false;
-    if (Object.keys(state.sports).length && !state.sports[e.s]) return false;
-    if (e.i < state.minI) return false;
-    if (state.confirmed && e.status !== '✔') return false;
-    if (state.q) {
-      var hay = (e.t + ' ' + e.g + ' ' + (e.p || '') + ' ' + (e.who || '') + ' ' + (e.info || '')).toLowerCase();
-      if (hay.indexOf(state.q) === -1) return false;
-    }
-    return true;
+    return !activeCount() || !!state.sports[e.s];
   }
 
   /* ---------- Панель фильтров ---------- */
   function renderChips() {
-    var list = SPORTS.filter(function (s) { return state.cat === 'all' || s.cat === state.cat; });
-    $('#sportChips').innerHTML = list.map(function (s) {
+    $('#sportChips').innerHTML = SPORTS.map(function (s) {
       return '<button class="chip' + (state.sports[s.key] ? ' is-active' : '') + '" data-sport="' + s.key + '">' +
         '<i style="background:' + SPORT_COLOR[s.key] + '"></i>' + esc(s.label) + '</button>';
     }).join('');
@@ -158,13 +145,7 @@
 
   function renderAll() { state.shown = CARDS_STEP; renderChips(); renderMonths(); renderList(); }
 
-  function resetFilters() {
-    state.cat = 'all'; state.sports = {}; state.minI = 0; state.confirmed = false; state.q = '';
-    $('#q').value = ''; $('#onlyConfirmed').checked = false;
-    $all('.seg__btn').forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-cat') === 'all'); });
-    $all('.star-btn').forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-min') === '0'); });
-    renderAll();
-  }
+  function resetFilters() { state.sports = {}; renderAll(); }
 
   /* ---------- Обработчики ---------- */
   document.addEventListener('click', function (ev) {
@@ -179,19 +160,9 @@
     if (t.closest('#resetBtn') || t.closest('#resetBtn2')) { resetFilters(); return; }
     if (!t.closest('.filters') && !$('#fpanel').hidden) openFilters(false);
 
-    if ((el = t.closest('[data-cat]'))) {
-      state.cat = el.getAttribute('data-cat'); state.sports = {};
-      $all('.seg__btn').forEach(function (b) { b.classList.toggle('is-active', b === el); });
-      return renderAll();
-    }
     if ((el = t.closest('[data-sport]'))) {
       var k = el.getAttribute('data-sport');
       if (state.sports[k]) delete state.sports[k]; else state.sports[k] = 1;
-      return renderAll();
-    }
-    if ((el = t.closest('[data-min]'))) {
-      state.minI = +el.getAttribute('data-min');
-      $all('.star-btn').forEach(function (b) { b.classList.toggle('is-active', b === el); });
       return renderAll();
     }
     if ((el = t.closest('[data-month]'))) {
@@ -205,13 +176,6 @@
     if (ev.key === 'Escape' && !$('#fpanel').hidden) openFilters(false);
   });
 
-  var qTimer;
-  $('#q').addEventListener('input', function () {
-    clearTimeout(qTimer);
-    var v = this.value;
-    qTimer = setTimeout(function () { state.q = v.trim().toLowerCase(); renderAll(); }, 150);
-  });
-  $('#onlyConfirmed').addEventListener('change', function () { state.confirmed = this.checked; renderAll(); });
   $('[data-bonus]').setAttribute('href', BONUS_URL);
 
   /* ---------- Старт ---------- */

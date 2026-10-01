@@ -90,24 +90,10 @@ a { color: inherit; }
 .fpanel__foot { display: flex; gap: 8px; margin-top: 16px; }
 .fpanel__foot .btn { flex: 1; }
 
-.search { display: flex; align-items: center; gap: 8px; background: var(--soft); border-radius: 12px; padding: 0 12px; color: #888; }
-.search input { border: 0; background: transparent; outline: none; padding: 11px 0; font: inherit; font-size: 14px; width: 100%; color: #111; }
-.seg { display: inline-flex; background: var(--soft); border-radius: 12px; padding: 4px; gap: 2px; width: 100%; }
-.seg__btn { flex: 1; border: 0; background: transparent; padding: 8px 12px; border-radius: 9px; font-weight: 600; font-size: 14px; color: #555; }
-.seg__btn.is-active { background: #111; color: var(--yellow); }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 12px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
 .chip i { width: 8px; height: 8px; border-radius: 50%; }
 .chip.is-active { background: #111; border-color: #111; color: #fff; }
-.stars-filter { display: flex; gap: 6px; flex-wrap: wrap; }
-.star-btn { border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 7px 12px; font-size: 13px; font-weight: 700; }
-.star-btn.is-active { background: var(--yellow); border-color: var(--yellow); }
-.toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; user-select: none; margin-top: 16px; }
-.toggle input { display: none; }
-.toggle span { width: 34px; height: 20px; border-radius: 20px; background: #ddd; position: relative; transition: .2s; flex: none; }
-.toggle span::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: .2s; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
-.toggle input:checked + span { background: #111; }
-.toggle input:checked + span::after { left: 16px; background: var(--yellow); }
 .btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; padding: 12px 18px; font-weight: 700; border: 0; font-size: 14px; }
 .btn--dark { background: #111; color: var(--yellow); }
 .btn--ghost { background: var(--soft); }
