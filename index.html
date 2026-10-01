@@ -12,15 +12,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2026-10-02-7">
+  <link rel="stylesheet" href="css/style.css?v=2026-10-02-9">
 </head>
 <body>
   <div class="page">
     <a class="bonus" href="#" data-bonus>
-      <span class="bonus__big">Бонус</span>
-      <span class="bonus__small">на первый<br>депозит до</span>
-      <span class="bonus__sum">15 000 RUB</span>
-      <span class="bonus__btn">Забрать бонус</span>
+      <picture>
+        <source media="(max-width: 720px)" srcset="img/bonus-mobile.webp">
+        <img src="img/bonus-desktop.webp" alt="Фрибет на первый депозит до 30 000 RUB" width="2016" height="192">
+      </picture>
     </a>
 
     <main class="sheet">
@@ -29,16 +29,8 @@
           <h1 class="hero__title">Календарь<br>спортивных<br>событий</h1>
           <p class="hero__lead">Не ломай голову — выбирай, на что поставить в&nbsp;2026–2027&nbsp;году</p>
         </div>
-        <div class="hero__art" aria-hidden="true">
-          <span class="ball ball--1"></span>
-          <span class="ball ball--2"></span>
-          <span class="ball ball--3"></span>
-          <span class="ball ball--4"></span>
-          <div class="cal-block">
-            <div class="cal-block__rings"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-            <div class="cal-block__brand">МБ</div>
-            <div class="cal-block__num">26<small>/27</small></div>
-          </div>
+        <div class="hero__art">
+          <img src="img/hero.webp" alt="Календарь МБ 2026/27" width="1476" height="900">
         </div>
       </header>
 
@@ -79,7 +71,7 @@
     </main>
   </div>
 
-  <script src="js/data.js?v=2026-10-02-7"></script>
-  <script src="js/app.js?v=2026-10-02-7"></script>
+  <script src="js/data.js?v=2026-10-02-9"></script>
+  <script src="js/app.js?v=2026-10-02-9"></script>
 </body>
 </html>
