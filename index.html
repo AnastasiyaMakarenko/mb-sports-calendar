@@ -87,7 +87,10 @@
 
         <div class="list-head">
           <h2 class="h2" id="listTitle"></h2>
-          <button class="back" id="backToMonth" type="button" hidden>← Весь месяц</button>
+          <span class="list-head__btns">
+            <button class="back" id="todayBtn" type="button" hidden>Сегодня</button>
+            <button class="back" id="backToMonth" type="button" hidden>← Весь месяц</button>
+          </span>
         </div>
         <div class="seasons" id="seasons" hidden></div>
         <div class="cards" id="cards"></div>
@@ -133,7 +136,8 @@
     </article>
   </div>
 
-  <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
+  <!-- ?v= меняйте при каждом обновлении данных, чтобы браузеры не отдавали старый файл из кэша -->
+  <script src="js/data.js?v=2026-10-01"></script>
+  <script src="js/app.js?v=2026-10-01"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
   /* ---------- Настройки ---------- */
   var LINE_URL = '#';          // ссылка «Перейти в линию» (подставьте адрес линии)
   var BONUS_URL = '#';         // ссылка кнопки «Забрать бонус»
-  var TODAY = '2026-09-21';    // дата актуальности данных
+  var DATA_DATE = '01.10.2026';// когда последний раз обновляли события
   var FIRST_MONTH = '2026-09';
   var LAST_MONTH = '2027-12';
   var CARDS_STEP = 12;         // сколько карточек показывать сразу
@@ -60,7 +60,7 @@
   /* ---------- Состояние ---------- */
   var state = {
     cat: 'all', sports: {}, minI: 0, confirmed: false, q: '',
-    month: TODAY.slice(0, 7), day: null, shown: CARDS_STEP, ratingAll: false
+    month: null, day: null, shown: CARDS_STEP, ratingAll: false
   };
 
   /* ---------- Утилиты ---------- */
@@ -76,6 +76,16 @@
     }
     return out;
   })();
+  // «Сегодня» берём с часов пользователя, а не фиксируем в коде
+  var TODAY = (function () {
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  })();
+  var FIRST_DAY = FIRST_MONTH + '-01';
+  var LAST_DAY = LAST_MONTH + '-31';
+  var IN_RANGE = TODAY >= FIRST_DAY && TODAY <= LAST_DAY;   // попадает ли сегодняшний день в календарь
+  var START_MONTH = IN_RANGE ? TODAY.slice(0, 7) : (TODAY < FIRST_DAY ? FIRST_MONTH : LAST_MONTH);
+
   function daysIn(y, m) { return new Date(y, m, 0).getDate(); }
   function monthBounds(key) { return [key + '-01', key + '-' + pad(daysIn(+key.slice(0, 4), +key.slice(5, 7)))]; }
   function overlaps(e, a, b) { return e.st <= b && e.en >= a; }
@@ -126,7 +136,8 @@
     $('#months').innerHTML = MONTHS.map(function (m, idx) {
       var n = counts[idx];
       var h = n ? Math.max(12, Math.round(n / max * 100)) : 0;
-      return '<button class="mon' + (m.key === state.month ? ' is-active' : '') + (n ? '' : ' is-empty') + '" data-month="' + m.key + '" title="' + MONTHS_NOM[m.m - 1] + ' ' + m.y + ': ' + n + '">' +
+      var past = monthBounds(m.key)[1] < TODAY;
+      return '<button class="mon' + (m.key === state.month ? ' is-active' : '') + (n ? '' : ' is-empty') + (past ? ' is-past' : '') + '" data-month="' + m.key + '" title="' + MONTHS_NOM[m.m - 1] + ' ' + m.y + ': ' + n + (past ? ' (месяц прошёл)' : '') + '">' +
         '<span class="mon__bar"><i style="height:' + h + '%"></i></span>' +
         '<span class="mon__n">' + (n || '–') + '</span>' +
         '<span class="mon__name">' + MONTHS_SHORT[m.m - 1] + '</span>' +
@@ -149,7 +160,7 @@
       var dots = evs.slice(0, 4).map(function (e) { return '<i style="background:' + SPORT_COLOR[e.s] + '"></i>'; }).join('');
       var wd = new Date(y, m - 1, d).getDay();
       html += '<button class="d' + (ds === TODAY ? ' is-today' : '') + (ds === state.day ? ' is-sel' : '') +
-        (wd === 0 || wd === 6 ? ' is-we' : '') + (evs.length ? '' : ' is-none') +
+        (ds < TODAY ? ' is-past' : '') + (wd === 0 || wd === 6 ? ' is-we' : '') + (evs.length ? '' : ' is-none') +
         '" data-day="' + ds + '" aria-label="' + esc(dayName(ds)) + ': событий ' + evs.length + '">' +
         '<b>' + d + '</b><span class="d__dots">' + dots + '</span></button>';
     }
@@ -157,10 +168,7 @@
   }
 
   /* ---------- Карточки (месяц или выбранный день) ---------- */
-  function cardDate(e, b) {
-    if (b && e.st <= b[0] && e.en >= b[1]) return 'Весь ' + MONTHS_NOM[+b[0].slice(5, 7) - 1].toLowerCase();
-    return e.d;
-  }
+  function cardDate(e) { return e.d; }
   function badge(e) {
     if (e.rank && e.rank <= 10) return '<span class="badge badge--top">Топ</span>';
     if (e.rank) return '<span class="badge">стоит<br>посмотреть</span>';
@@ -197,6 +205,7 @@
     }
     $('#listTitle').innerHTML = esc(title) + ' <small>' + list.length + '</small>';
     $('#backToMonth').hidden = !state.day;
+    $('#todayBtn').hidden = !IN_RANGE || state.day === TODAY;
     $('#cardsEmpty').hidden = list.length > 0;
     $('#cards').innerHTML = list.slice(0, state.shown).map(function (e) { return cardHtml(e, b); }).join('');
     var rest = list.length - state.shown;
@@ -232,6 +241,26 @@
     }).join('');
   }
 
+  /* ---------- Расписание турнира ----------
+     Выводим только то, что опубликовали организаторы (поле sched в data.js).
+     Если расписания ещё нет — честно пишем об этом и даём ссылку на календарь турнира. */
+  function schedHtml(e) {
+    if (e.sched && e.sched.length) {
+      var past = 0;
+      var rows = e.sched.map(function (r) {
+        var done = r.iso && r.iso < TODAY;
+        if (done) past++;
+        return '<li class="sch__i' + (done ? ' is-past' : '') + '"><span class="sch__d">' + esc(r.d) + '</span>' +
+          '<span class="sch__t">' + esc(r.t) + (r.note ? '<small>' + esc(r.note) + '</small>' : '') + '</span></li>';
+      }).join('');
+      return '<div class="sch"><h4>Расписание<small>' + e.sched.length + (past ? ', прошло ' + past : '') + '</small></h4><ul class="sch__list">' + rows + '</ul>' +
+        (e.calSrc ? '<a class="sch__src" href="' + esc(e.calSrc) + '" target="_blank" rel="noopener">Полный календарь турнира</a>' : '') + '</div>';
+    }
+    return '<div class="sch sch--none"><h4>Расписание матчей</h4>' +
+      '<p>Организатор ещё не опубликовал сетку матчей по дням' + (e.ann ? ': ' + esc(e.ann.toLowerCase()) : '') + '. Мы не придумываем пары и даты — блок появится после официального анонса.</p>' +
+      (e.calSrc || e.src ? '<a class="sch__src" href="' + esc(e.calSrc || e.src) + '" target="_blank" rel="noopener">Страница турнира</a>' : '') + '</div>';
+  }
+
   /* ---------- Окно события ---------- */
   function openEvent(id) {
     var e = BY_ID[id];
@@ -245,10 +274,10 @@
       '<span class="tag tag--stars" title="Популярность события">' + starsHtml(e.i) + '</span>' +
       (e.status !== '✔' ? '<span class="tag">' + statusText(e.status) + '</span>' : '') +
       (e.rank ? '<span class="tag">№' + e.rank + ' в топе</span>' : '') + '</div>';
-    var rows = [['Где', e.p], ['Участники', e.who], ['Главное', e.info], ['Ждём анонса', e.ann]];
+    var rows = [['Даты', e.d], ['Где', e.p], ['Участники', e.who], ['Главное', e.info], ['Ждём анонса', e.ann]];
     $('#mBody').innerHTML = '<dl>' + rows.filter(function (r) { return r[1]; }).map(function (r) {
       return '<div class="kv' + (r[0] === 'Ждём анонса' ? ' kv--ann' : '') + '"><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>';
-    }).join('') + '</dl>' +
+    }).join('') + '</dl>' + schedHtml(e) +
       '<div class="modal__cta"><a class="btn btn--dark" href="' + LINE_URL + '" data-line>Перейти в линию</a>' +
       '<button class="btn btn--ghost" data-goto="' + e.id + '">В календаре</button>' +
       (e.src ? '<a class="btn btn--link" href="' + esc(e.src) + '" target="_blank" rel="noopener">Источник</a>' : '') + '</div>';
@@ -294,6 +323,10 @@
       return;
     }
     if (t.closest('#backToMonth')) { state.day = null; state.shown = CARDS_STEP; renderDays(); renderList(); return; }
+    if (t.closest('#todayBtn')) {
+      state.month = TODAY.slice(0, 7); state.day = TODAY; state.shown = CARDS_STEP;
+      renderMonths(); renderDays(); renderList(); return;
+    }
     if (t.closest('#moreCards')) { state.shown += CARDS_STEP; renderList(); return; }
     if (t.closest('#moreRating')) { state.ratingAll = !state.ratingAll; renderRating(); return; }
     if ((el = t.closest('[data-goto]'))) {
@@ -332,5 +365,10 @@
   });
   $('[data-bonus]').setAttribute('href', BONUS_URL);
 
+  // стартуем на текущем месяце и сразу открываем сегодняшний день
+  state.month = START_MONTH;
+  state.day = IN_RANGE ? TODAY : null;
+  var foot = $('.foot p');
+  if (foot) foot.textContent = '18+ | Данные на ' + DATA_DATE + ' из открытых источников. ✔ — дата подтверждена, ≈ — ожидается, ? — не объявлена. Даты могут меняться.';
   renderRating(); renderInfo(); renderAll();
 })();
