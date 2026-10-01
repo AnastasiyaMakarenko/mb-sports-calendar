@@ -124,7 +124,7 @@
   }
   function cardHtml(e) {
     return '<a class="card' + (e.rank ? ' has-badge' : '') + '" href="' + LINE_URL + '" data-line style="--g:' + grad(e.c) + '" title="' + esc(e.t) + ' · ' + esc(e.d) + '">' +
-      '<span class="card__ring"></span><span class="card__wm">' + esc(wm(e)) + '</span>' +
+      '<span class="card__wm">' + esc(wm(e)) + '</span>' +
       badge(e) +
       '<span class="card__g">' + esc(e.g) + '</span>' +
       '<span class="card__t">' + esc(e.t) + '</span>' +
