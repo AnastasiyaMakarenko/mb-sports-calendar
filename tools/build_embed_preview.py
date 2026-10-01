@@ -23,11 +23,12 @@ def b64(path, mime):
 for name in ('bonus-mobile', 'bonus-desktop', 'hero'):
     snippet = snippet.replace(BASE + 'img/%s.webp' % name, b64('img/%s.webp' % name, 'image/webp'))
 
-# события — внутрь файла (в рабочем блоке они грузятся из репозитория)
-events_uri = b64('data/events.json', 'application/json')
+# события — внутрь файла (в рабочем блоке они грузятся из репозитория).
+# Никакого fetch: иначе просмотрщики файлов и открытие с диска блокируют запрос.
+events_json = (ROOT / 'data' / 'events.json').read_text(encoding='utf-8')
 snippet = snippet.replace(
     "fetch(BASE + 'data/events.json?t=' + Date.now())",
-    "fetch('%s')" % events_uri)
+    "Promise.resolve({ ok: true, json: function () { return Promise.resolve(%s); } })" % events_json)
 
 snippet = snippet.replace("var BASE = '%s';" % BASE, "var BASE = '';")
 assert 'raw.githubusercontent.com' not in snippet, 'остались внешние ссылки'
