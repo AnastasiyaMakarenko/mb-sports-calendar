@@ -151,7 +151,9 @@
     return '';
   }
   function cardHtml(e) {
-    return '<a class="card' + (e.rank ? ' has-badge' : '') + '" href="' + LINE_URL + '" data-line style="--g:' + grad(e.c) + '" title="' + esc(e.t) + ' · ' + esc(e.d) + '">' +
+    // ссылка на турнир в линии: берём из поля url события, иначе общий LINE_URL
+    var href = e.url || LINE_URL;
+    return '<a class="card' + (e.rank ? ' has-badge' : '') + '" href="' + esc(href) + '" data-line style="--g:' + grad(e.c) + '" title="' + esc(e.t) + ' · ' + esc(e.d) + '">' +
       '<span class="card__wm">' + esc(wm(e)) + '</span>' + icon(e) +
       badge(e) +
       '<span class="card__g">' + esc(e.g) + '</span>' +
@@ -180,7 +182,8 @@
     var t = ev.target, el;
 
     // клик по карточке и по кнопке бонуса ведёт на внешние ссылки
-    if (t.closest('[data-line]') && LINE_URL === '#') { ev.preventDefault(); return; }
+    var card = t.closest('[data-line]');
+    if (card && card.getAttribute('href') === '#') { ev.preventDefault(); return; }
     if (t.closest('[data-bonus]') && BONUS_URL === '#') { ev.preventDefault(); return; }
 
     if (t.closest('#filtersBtn')) { openFilters($('#fpanel').hidden); return; }
