@@ -105,13 +105,18 @@
 #mbc .more-btn { display: block; margin: 16px auto 0; border: 0; background: var(--soft); border-radius: 12px; padding: 12px 22px; font-weight: 600; font-size: 14px; }
 #mbc .more-btn:hover { background: #fff5c7; }
 #mbc /* ---------- Адаптив ---------- */
+/* Как только колонка становится уже картинки — мяч начинает обрезаться, #mbc поэтому картинку уводим под текст на всю ширину */
+@media (max-width: 1060px) {
+  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .hero__text { padding: 34px 30px 14px; }
+  .hero__art { aspect-ratio: 3.2 / 1; }
+}
 @media (max-width: 900px) {
-  .cards { grid-template-columns: repeat(2, 1fr); }
+#mbc .cards { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 720px) {
-#mbc .hero { grid-template-columns: 1fr; min-height: 0; }
 #mbc .hero__text { padding: 26px 20px 8px; }
-#mbc .hero__art { height: 210px; }
+#mbc .hero__art { aspect-ratio: auto; height: 210px; }
 #mbc .filters { padding: 16px 16px 0; }
 #mbc .block { padding: 18px 16px 0; }
 #mbc .fpanel { left: 16px; width: calc(100% - 32px); }

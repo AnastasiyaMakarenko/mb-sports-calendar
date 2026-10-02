@@ -111,13 +111,19 @@ a { color: inherit; }
 .more-btn:hover { background: #fff5c7; }
 
 /* ---------- Адаптив ---------- */
+/* Как только колонка становится уже картинки — мяч начинает обрезаться,
+   поэтому картинку уводим под текст на всю ширину */
+@media (max-width: 1060px) {
+  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .hero__text { padding: 34px 30px 14px; }
+  .hero__art { aspect-ratio: 3.2 / 1; }
+}
 @media (max-width: 900px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 720px) {
-  .hero { grid-template-columns: 1fr; min-height: 0; }
   .hero__text { padding: 26px 20px 8px; }
-  .hero__art { height: 210px; }
+  .hero__art { aspect-ratio: auto; height: 210px; }
   .filters { padding: 16px 16px 0; }
   .block { padding: 18px 16px 0; }
   .fpanel { left: 16px; width: calc(100% - 32px); }
