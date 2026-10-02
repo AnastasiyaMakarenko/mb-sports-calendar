@@ -1,5 +1,5 @@
 ﻿КАЛЕНДАРЬ СПОРТИВНЫХ СОБЫТИЙ 2026–2027
-Спорт и киберспорт · 257 турниров
+Спорт и киберспорт · 229 турниров
 Статус даты: ✔ подтверждена · ≈ ожидается · ? не объявлена
 
 
@@ -84,11 +84,6 @@
    Место: Бухарест
    Линия: https://melbet.ru/ru/esport
 
-✔ Азиатские игры
-   19.09 – 04.10.2026 · Мультиспорт
-   Место: Айти и Нагоя, Япония
-   Линия: https://melbet.ru/ru/sport
-
 ✔ BJK Cup Finals
    22–27.09.2026 · Теннис. Сборные
    Место: Шэньчжэнь
@@ -129,24 +124,9 @@
    Место: Россия
    Линия: https://melbet.ru/ru/sport/sports/basketball-russia-vtb-united-league?filter=eyJxIjoie1wiNFwiOntcIjc5N1wiOlszODI1NF19fSJ9
 
-✔ BKFC 94
-   26.09.2026 · Кулачные бои
-   Место: Манчестер
-   Линия: https://melbet.ru/ru/sport/pre-match/martial-arts
-
 ≈ FNCS Global Championship
    26–27.09.2026 · Киберспорт. Fortnite
    Линия: https://melbet.ru/ru/esport
-
-✔ Top Dog 43
-   26.09.2026 · Кулачные бои. Россия
-   Место: Москва, ЦСКА Арена
-   Линия: https://melbet.ru/ru/sport/pre-match/martial-arts
-
-✔ NFL в Бразилии
-   27.09.2026 · Американский футбол
-   Место: Рио-де-Жанейро, Маракана
-   Линия: https://melbet.ru/ru/sport/sports/american-football-usa-nfl?filter=eyJxIjoie1wiNlwiOntcIjMzNTlcIjpbNDkzMDZdfX0ifQ==
 
 ✔ UFC Fight Night 289
    27.09.2026 · MMA. UFC
@@ -272,11 +252,6 @@
    Место: Лондон
    Линия: https://melbet.ru/ru/sport/sports/boxing-world-upcoming-fights?filter=eyJxIjoie1wiN1wiOntcIjczNVwiOls4NDQ4XX19In0=
 
-✔ Азиатские Параигры
-   18–24.10.2026 · Мультиспорт
-   Место: Нагоя
-   Линия: https://melbet.ru/ru/sport
-
 ✔ NBA
    20.10.2026 – 11.04.2027 · Баскетбол. Регулярный чемпионат
    Место: США и Канада
@@ -312,16 +287,6 @@
    Место: Камп Ноу, Барселона
    Линия: https://melbet.ru/ru/sport/sports/football-spain-spain-la-liga?filter=eyJxIjoie1wiMVwiOntcIjEyODhcIjpbNDQ4Nl19fSJ9
 
-✔ Heritage Classic
-   25.10.2026 · Хоккей. НХЛ
-   Место: Виннипег
-   Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
-
-✔ NFL в Париже
-   25.10.2026 · Американский футбол
-   Место: Стад де Франс
-   Линия: https://melbet.ru/ru/sport/sports/american-football-usa-nfl?filter=eyJxIjoie1wiNlwiOntcIjMzNTlcIjpbNDkzMDZdfX0ifQ==
-
 ✔ Гран-при Мексики
    29.10 – 01.11.2026 · Формула-1. Этап 2026
    Место: Мехико
@@ -342,20 +307,10 @@
    Место: Paris La Défense Arena
    Линия: https://melbet.ru/ru/sport/pre-match/tennis
 
-≈ RCC Intro
-   31.10 и 11.11.2026 · MMA. Россия
-   Место: Екатеринбург
-   Линия: https://melbet.ru/ru/sport/pre-match/martial-arts
-
 ✔ Мбилли – Канело
    31.10.2026 · Бокс. Второй средний вес
    Место: Эр-Рияд
    Линия: https://melbet.ru/ru/sport/sports/boxing-world-upcoming-fights?filter=eyJxIjoie1wiN1wiOntcIjczNVwiOls4NDQ4XX19In0=
-
-✔ Юношеские Олимпийские игры
-   31.10 – 13.11.2026 · Мультиспорт. МОК
-   Место: Дакар, Сенегал
-   Линия: https://melbet.ru/ru/sport
 
 
 ====================================================================
@@ -376,11 +331,6 @@
    Место: Россия
    Линия: https://melbet.ru/ru/sport/sports/football-russia-russia-cup-rpl-path?filter=eyJxIjoie1wiMVwiOntcIjEzNDNcIjpbNDgzMjFdfX0ifQ==
 
-✔ NBA Mexico City Game
-   07.11.2026 · Баскетбол. NBA
-   Место: Мехико, Arena CDMX
-   Линия: https://melbet.ru/ru/sport/sports/basketball-usa-nba?filter=eyJxIjoie1wiNFwiOntcIjcwOVwiOls5OThdfX0ifQ==
-
 ✔ Буатси – Хатчинсон 2
    07.11.2026 · Бокс. Полутяжёлый вес
    Место: Манчестер
@@ -399,11 +349,6 @@
    11–15.11.2026 · Киберспорт. CS2
    Место: Гонконг
    Линия: https://melbet.ru/ru/esport
-
-✔ NHL Global Series
-   12 и 14.11.2026 · Хоккей. НХЛ в Европе
-   Место: Хельсинки
-   Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
 
 ✔ UFC 334
    14.11.2026 · MMA. UFC
@@ -517,11 +462,6 @@
    Место: Москва, «ВТБ Арена»
    Линия: https://melbet.ru/ru/sport/pre-match/ice-hockey
 
-✔ Вечера бокса RCC
-   08 и 15.12.2026 · Бокс. Россия
-   Место: Екатеринбург
-   Линия: https://melbet.ru/ru/sport/sports/boxing-world-upcoming-fights?filter=eyJxIjoie1wiN1wiOntcIjczNVwiOls4NDQ4XX19In0=
-
 ✔ Клубный ЧМ по волейболу: женщины
    08–13.12.2026 · Волейбол
    Место: Сан-Паулу
@@ -566,11 +506,6 @@
    Место: Челябинск, «Трактор»
    Линия: https://melbet.ru/ru/sport
 
-✔ NHL Global Series
-   18 и 20.12.2026 · Хоккей. НХЛ в Европе
-   Место: Дюссельдорф
-   Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
-
 ✔ Финал MLS
    18.12.2026 · Футбол. США
    Место: Стадион финалиста
@@ -581,11 +516,6 @@
    Место: Милан, «Сан-Сиро»
    Линия: https://melbet.ru/ru/sport/pre-match/football
 
-✔ Рождественские матчи NBA
-   25.12.2026 · Баскетбол. NBA
-   Место: США
-   Линия: https://melbet.ru/ru/sport/sports/basketball-usa-nba?filter=eyJxIjoie1wiNFwiOntcIjcwOVwiOls5OThdfX0ifQ==
-
 ✔ Молодёжный чемпионат мира
    26.12.2026 – 05.01.2027 · Хоккей. IIHF
    Место: Эдмонтон и Ред-Дир, Канада
@@ -595,11 +525,6 @@
    29.12.2026 – 06.01.2027 · Прыжки на лыжах
    Место: Оберстдорф, Гармиш-Партенкирхен, Инсбрук, Бишофсхофен
    Линия: https://melbet.ru/ru/sport
-
-✔ Winter Classic
-   31.12.2026 · Хоккей. НХЛ
-   Место: Солт-Лейк-Сити, Rice-Eccles Stadium
-   Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
 
 
 ====================================================================
@@ -650,16 +575,6 @@
    Место: Германия, финал — Кёльн
    Линия: https://melbet.ru/ru/sport/pre-match/handball
 
-✔ NBA в Париже и Манчестере
-   14 и 17.01.2027 · Баскетбол. NBA
-   Место: Accor Arena / Co-op Live
-   Линия: https://melbet.ru/ru/sport/sports/basketball-usa-nba?filter=eyJxIjoie1wiNFwiOntcIjcwOVwiOls5OThdfX0ifQ==
-
-✔ Зимняя Универсиада
-   15–25.01.2027 · Мультиспорт. FISU
-   Место: Чанчунь, Китай
-   Линия: https://melbet.ru/ru/sport
-
 ✔ NFL: плей-офф
    с 16.01.2027 · Американский футбол
    Место: США
@@ -679,11 +594,6 @@
    20–31.01.2027 · Киберспорт. Dota 2
    Место: Онлайн
    Линия: https://melbet.ru/ru/esport
-
-? Африканские игры
-   20.01 – 07.02.2027 (или 27.08 – 10.09.2027) · Мультиспорт
-   Место: Каир
-   Линия: https://melbet.ru/ru/sport
 
 ✔ IEM Kraków
    27.01 – 07.02.2027 · Киберспорт. CS2
@@ -714,16 +624,6 @@
    Место: 17 вечеров: старт в Глазго, финал в Лондоне
    Линия: https://melbet.ru/ru/sport
 
-✔ Неделя звёзд КХЛ
-   05–08.02.2027 · Хоккей. КХЛ
-   Место: Минск-Арена
-   Линия: https://melbet.ru/ru/sport/sports/ice-hockey-russia-khl?filter=eyJxIjoie1wiMTBcIjp7XCI3NDdcIjpbMjQzOV19fSJ9
-
-✔ Матч звёзд НХЛ
-   06.02.2027 · Хоккей. НХЛ
-   Место: Элмонт, UBS Arena
-   Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
-
 ✔ UFC Fight Night в Сиднее
    07.02.2027 · MMA. UFC
    Место: Сидней, Afterpay Arena
@@ -739,10 +639,6 @@
    Место: Отепя, Эстония
    Линия: https://melbet.ru/ru/sport
 
-≈ Матч звёзд Единой лиги
-   14.02.2027 · Баскетбол. Россия
-   Линия: https://melbet.ru/ru/sport/sports/basketball-russia-vtb-united-league?filter=eyJxIjoie1wiNFwiOntcIjc5N1wiOlszODI1NF19fSJ9
-
 ✔ Супербоул LXI
    14.02.2027 · Американский футбол
    Место: SoFi Stadium, Инглвуд
@@ -757,16 +653,6 @@
    17–21.02.2027 · Биатлон. Россия
    Место: Раубичи, Беларусь
    Линия: https://melbet.ru/ru/sport
-
-✔ Матч всех звёзд NBA
-   19–21.02.2027 · Баскетбол. NBA
-   Место: Финикс
-   Линия: https://melbet.ru/ru/sport/sports/basketball-usa-nba?filter=eyJxIjoie1wiNFwiOntcIjcwOVwiOls5OThdfX0ifQ==
-
-✔ Stadium Series
-   20.02.2027 · Хоккей. НХЛ
-   Место: Арлингтон, AT&T Stadium
-   Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
 
 ✔ Отбор на ЧМ-2027: последнее окно
    22.02 – 02.03.2027 · Баскетбол. Сборные
@@ -1076,11 +962,6 @@
    ≈ лето 2027 · Футбол. Сборные
    Линия: https://melbet.ru/ru/sport/pre-match/football
 
-✔ Европейские игры
-   16–27.06.2027 · Мультиспорт
-   Место: Стамбул
-   Линия: https://melbet.ru/ru/sport
-
 ✔ Женский Евробаскет
    16–27.06.2027 · Баскетбол. Сборные
    Место: Антверпен, Стокгольм, Эспоо; финал — Вильнюс
@@ -1149,25 +1030,10 @@
    Место: Эр-Рияд
    Линия: https://melbet.ru/ru/esport
 
-✔ Панамериканские игры
-   23.07 – 08.08.2027 · Мультиспорт
-   Место: Лима, Перу
-   Линия: https://melbet.ru/ru/sport
-
-≈ Тихоокеанские игры
-   24.07 – 07.08.2027 · Мультиспорт
-   Место: Таити
-   Линия: https://melbet.ru/ru/sport
-
 
 ====================================================================
 АВГУСТ 2027
 ====================================================================
-✔ Летняя Универсиада
-   01–12.08.2027 · Мультиспорт. FISU
-   Место: Чхунчхон, Южная Корея
-   Линия: https://melbet.ru/ru/sport
-
 ≈ Канада и Цинциннати
    ≈ август 2027 · Теннис. Masters 1000
    Место: Монреаль / Торонто / Цинциннати
@@ -1235,11 +1101,6 @@
    17–19.09.2027 · Гольф
    Место: Адэр-Мэнор, Ирландия
    Линия: https://melbet.ru/ru/sport/sports/golf-world-golf-outrights?filter=eyJxIjoie1wiOFwiOntcIjg0NFwiOlszNjM0OF19fSJ9
-
-✔ Игры Юго-Восточной Азии
-   18–29.09.2027 · Мультиспорт
-   Место: Малайзия
-   Линия: https://melbet.ru/ru/sport
 
 ✔ ESL Pro League S26
    23.09 – 03.10.2027 · Киберспорт. CS2
