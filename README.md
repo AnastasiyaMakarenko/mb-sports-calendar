@@ -21,17 +21,28 @@ python -m http.server 8765
 
 ## Версия для вставки на чужой сайт
 
-`exports/calendar-embed.txt` — готовый блок `<div id="mbc">…</div>` со стилями и скриптом внутри. Его один раз вставляют в страницу сайта; события он подгружает из этого репозитория (`data/events.json`), поэтому после обновления данных сайт обновляется сам.
+`exports/calendar-embed.txt` — загрузчик на 1 КБ. Его вставляют в страницу один раз как HTML-блок. Он подтягивает из этого репозитория:
 
-После любой правки `js/data.js` нужно пересобрать данные и блок:
+- `embed/calendar.css`, `embed/calendar.html`, `embed/calendar.js` — вид и логика блока;
+- `data/events.json` — события;
+- `img/*.webp` — баннеры.
+
+Поэтому **любые правки — и данных, и внешнего вида — попадают на сайт сами**, пересылать файл заново не нужно.
+
+После правок в `js/data.js`, `css/style.css`, `js/app.js`, `index.html` или картинках пересоберите блок:
 
 ```bash
 python tools/build_embed.py
 ```
 
-Скрипт обновляет `data/events.json` и `exports/calendar-embed.txt`. Дальше обычный коммит и пуш — сайт подхватит новые события при следующем открытии страницы.
+Затем обычный коммит и пуш. Репозиторий должен оставаться **публичным** — иначе `raw.githubusercontent.com` не отдаст файлы.
 
-Важно: для работы блока репозиторий должен быть **публичным** — иначе `raw.githubusercontent.com` не отдаст данные.
+Проверочные версии (всё внутри одного файла, обновлениями не живут):
+
+```bash
+python tools/build_single.py         # exports/lending-calendar.html и .txt
+python tools/build_embed_preview.py  # exports/embed-preview.html
+```
 
 ## Ссылки на турниры в линии
 
