@@ -260,7 +260,20 @@ script = '''(function () {
 (ROOT / 'embed' / 'calendar.html').write_text(markup, encoding='utf-8')
 (ROOT / 'embed' / 'calendar.js').write_text(script, encoding='utf-8')
 
-# ---------------- загрузчик для вставки на сайт ----------------
+# ---------------- ПОЛНЫЙ блок для вставки на сайт ----------------
+# Стили, разметка и логика лежат внутри файла — он не зависит от
+# внешних скриптов. Из репозитория подтягиваются только события,
+# поэтому новые турниры появляются на сайте сами.
+full = ('<!-- Календарь спортивных событий. Стили и логика внутри файла,\n'
+        '     события подгружаются автоматически. -->\n'
+        '<div id="mbc">\n<style>\n' + css_scoped + '\n</style>\n\n' +
+        markup + '\n\n<script>\n' + script + '</script>\n</div>\n')
+
+(ROOT / 'exports').mkdir(exist_ok=True)
+(ROOT / 'exports' / 'calendar-embed.txt').write_text(full, encoding='utf-8')
+print('calendar-embed.txt (полный блок):', round(len(full.encode()) / 1024), 'КБ')
+
+# ---------------- облегчённый загрузчик (запасной вариант) ----------------
 loader = '''<!-- Календарь спортивных событий. Вставить один раз; обновления приходят сами. -->
 <div id="mbc">Загружаем календарь…</div>
 <script>
@@ -290,10 +303,10 @@ loader = '''<!-- Календарь спортивных событий. Вст�
 </script>
 ''' % base
 
-(ROOT / 'exports').mkdir(exist_ok=True)
-(ROOT / 'exports' / 'calendar-embed.txt').write_text(loader, encoding='utf-8')
+(ROOT / 'exports' / 'calendar-embed-loader.txt').write_text(loader, encoding='utf-8')
 
 print('events.json:', len(events), 'событий')
 print('embed/: css %d КБ, html %d КБ, js %d КБ' % (
     len(css_scoped.encode()) / 1024, len(markup.encode()) / 1024, len(script.encode()) / 1024))
-print('загрузчик:', len(loader.encode()), 'байт, BASE =', base)
+print('calendar-embed-loader.txt (запасной):', len(loader.encode()), 'байт')
+print('BASE =', base)

@@ -1,0 +1,27 @@
+<!-- Календарь спортивных событий. Вставить один раз; обновления приходят сами. -->
+<div id="mbc">Загружаем календарь…</div>
+<script>
+(function () {
+  var BASE = 'https://raw.githubusercontent.com/AnastasiyaMakarenko/mb-sports-calendar/main/embed/';
+  var box = document.getElementById('mbc');
+  function get(file) {
+    return fetch(BASE + file + '?t=' + Date.now()).then(function (r) {
+      if (!r.ok) throw new Error(file + ': ' + r.status);
+      return r.text();
+    });
+  }
+  Promise.all([get('calendar.css'), get('calendar.html'), get('calendar.js')])
+    .then(function (parts) {
+      var style = document.createElement('style');
+      style.textContent = parts[0];
+      document.head.appendChild(style);
+      box.innerHTML = parts[1];
+      var script = document.createElement('script');
+      script.textContent = parts[2];
+      document.body.appendChild(script);
+    })
+    .catch(function (e) {
+      box.textContent = 'Не удалось загрузить календарь (' + e.message + ')';
+    });
+})();
+</script>
