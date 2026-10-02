@@ -134,7 +134,6 @@ script = '''
     function bounds(key) { return [key + '-01', key + '-' + pad(daysIn(+key.slice(0, 4), +key.slice(5, 7)))]; }
     function overlaps(e, a, b) { return e.st <= b && e.en >= a; }
     function grad(c) { var g = COLORS[c] || ['#444', '#111']; return 'linear-gradient(135deg,' + g[0] + ' 0%%,' + g[1] + ' 100%%)'; }
-    function wm(e) { return (e.t.split(/[\\s:–-]+/)[0] || '').slice(0, 10); }
     function icon(e) {
       return '<svg class="card__ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" ' +
         'stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[e.s] || ICONS.football) + '</svg>';
@@ -193,7 +192,7 @@ script = '''
       $('cardsEmpty').hidden = list.length > 0;
       $('cards').innerHTML = list.slice(0, state.shown).map(function (e) {
         return '<a class="card' + (e.rank ? ' has-badge' : '') + '" href="' + esc(e.url || LINE_URL) + '" data-line style="--g:' + grad(e.c) + '" title="' + esc(e.t) + ' · ' + esc(e.d) + '">' +
-          '<span class="card__wm">' + esc(wm(e)) + '</span>' + icon(e) + badge(e) +
+          icon(e) + badge(e) +
           '<span class="card__g">' + esc(e.g) + '</span>' +
           '<span class="card__t">' + esc(e.t) + '</span>' +
           '<span class="card__link">Перейти в линию</span></a>';

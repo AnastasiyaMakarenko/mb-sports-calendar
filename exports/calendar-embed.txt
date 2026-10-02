@@ -90,7 +90,6 @@
 }
 #mbc .card:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(0,0,0,.22); }
 #mbc .card__ico { position: absolute; right: 12px; top: 10px; width: 48px; height: 48px; color: #fff; opacity: .24; pointer-events: none; }
-#mbc .card__wm { position: absolute; right: -10px; bottom: -22px; font-size: 110px; font-weight: 900; line-height: 1; color: rgba(255,255,255,.13); letter-spacing: -6px; pointer-events: none; white-space: nowrap; text-transform: uppercase; }
 #mbc .card__g { position: relative; font-size: 11px; opacity: .85; }
 #mbc .card__t { position: relative; margin-top: 4px; font-size: 20px; line-height: 1.05; font-weight: 800; text-transform: uppercase; }
 #mbc /* место под иконку сверху и под метку снизу, #mbc чтобы они не наезжали на текст */
@@ -130,7 +129,7 @@
     <a class="bonus" href="#" data-bonus>
       <picture>
         <source media="(max-width: 720px)" srcset="https://raw.githubusercontent.com/AnastasiyaMakarenko/mb-sports-calendar/main/img/bonus-mobile.webp">
-        <img src="https://raw.githubusercontent.com/AnastasiyaMakarenko/mb-sports-calendar/main/img/bonus-desktop.webp" alt="Фрибет на первый депозит до 30 000 RUB" width="2016" height="192">
+        <img src="https://raw.githubusercontent.com/AnastasiyaMakarenko/mb-sports-calendar/main/img/bonus-desktop.webp" alt="Фрибет новым игрокам на первый депозит до 25 000 RUB" width="2000" height="190">
       </picture>
     </a>
 
@@ -296,7 +295,6 @@
     function bounds(key) { return [key + '-01', key + '-' + pad(daysIn(+key.slice(0, 4), +key.slice(5, 7)))]; }
     function overlaps(e, a, b) { return e.st <= b && e.en >= a; }
     function grad(c) { var g = COLORS[c] || ['#444', '#111']; return 'linear-gradient(135deg,' + g[0] + ' 0%,' + g[1] + ' 100%)'; }
-    function wm(e) { return (e.t.split(/[\s:–-]+/)[0] || '').slice(0, 10); }
     function icon(e) {
       return '<svg class="card__ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" ' +
         'stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[e.s] || ICONS.football) + '</svg>';
@@ -355,7 +353,7 @@
       $('cardsEmpty').hidden = list.length > 0;
       $('cards').innerHTML = list.slice(0, state.shown).map(function (e) {
         return '<a class="card' + (e.rank ? ' has-badge' : '') + '" href="' + esc(e.url || LINE_URL) + '" data-line style="--g:' + grad(e.c) + '" title="' + esc(e.t) + ' · ' + esc(e.d) + '">' +
-          '<span class="card__wm">' + esc(wm(e)) + '</span>' + icon(e) + badge(e) +
+          icon(e) + badge(e) +
           '<span class="card__g">' + esc(e.g) + '</span>' +
           '<span class="card__t">' + esc(e.t) + '</span>' +
           '<span class="card__link">Перейти в линию</span></a>';

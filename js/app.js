@@ -106,7 +106,6 @@
   function monthBounds(key) { return [key + '-01', key + '-' + pad(daysIn(+key.slice(0, 4), +key.slice(5, 7)))]; }
   function overlaps(e, a, b) { return e.st <= b && e.en >= a; }
   function grad(c) { var g = COLORS[c] || ['#444', '#111']; return 'linear-gradient(135deg,' + g[0] + ' 0%,' + g[1] + ' 100%)'; }
-  function wm(e) { return (e.t.split(/[\s:–-]+/)[0] || '').slice(0, 10); }
   function byPopularity(a, b) { return (b.i - a.i) || ((a.rank || 99) - (b.rank || 99)) || ((a.season ? 1 : 0) - (b.season ? 1 : 0)) || (a.st < b.st ? -1 : 1); }
   function activeCount() { return Object.keys(state.sports).length; }
 
@@ -154,7 +153,7 @@
     // ссылка на турнир в линии: берём из поля url события, иначе общий LINE_URL
     var href = e.url || LINE_URL;
     return '<a class="card' + (e.rank ? ' has-badge' : '') + '" href="' + esc(href) + '" data-line style="--g:' + grad(e.c) + '" title="' + esc(e.t) + ' · ' + esc(e.d) + '">' +
-      '<span class="card__wm">' + esc(wm(e)) + '</span>' + icon(e) +
+      icon(e) +
       badge(e) +
       '<span class="card__g">' + esc(e.g) + '</span>' +
       '<span class="card__t">' + esc(e.t) + '</span>' +
