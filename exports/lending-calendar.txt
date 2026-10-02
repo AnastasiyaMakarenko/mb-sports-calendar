@@ -312,15 +312,15 @@
    Место: Камп Ноу, Барселона
    Линия: https://melbet.ru/ru/sport/sports/football-spain-spain-la-liga?filter=eyJxIjoie1wiMVwiOntcIjEyODhcIjpbNDQ4Nl19fSJ9
 
+✔ Heritage Classic
+   25.10.2026 · Хоккей. НХЛ
+   Место: Виннипег
+   Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
+
 ✔ NFL в Париже
    25.10.2026 · Американский футбол
    Место: Стад де Франс
    Линия: https://melbet.ru/ru/sport/sports/american-football-usa-nfl?filter=eyJxIjoie1wiNlwiOntcIjMzNTlcIjpbNDkzMDZdfX0ifQ==
-
-✔ НХЛ на открытом воздухе: Виннипег – Монреаль
-   25.10.2026 · Хоккей. НХЛ
-   Место: Виннипег
-   Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
 
 ✔ Гран-при Мексики
    29.10 – 01.11.2026 · Формула-1. Этап 2026
@@ -376,7 +376,7 @@
    Место: Россия
    Линия: https://melbet.ru/ru/sport/sports/football-russia-russia-cup-rpl-path?filter=eyJxIjoie1wiMVwiOntcIjEzNDNcIjpbNDgzMjFdfX0ifQ==
 
-✔ NBA в Мехико: Денвер – Индиана
+✔ NBA Mexico City Game
    07.11.2026 · Баскетбол. NBA
    Место: Мехико, Arena CDMX
    Линия: https://melbet.ru/ru/sport/sports/basketball-usa-nba?filter=eyJxIjoie1wiNFwiOntcIjcwOVwiOls5OThdfX0ifQ==
@@ -400,7 +400,7 @@
    Место: Гонконг
    Линия: https://melbet.ru/ru/esport
 
-✔ НХЛ в Европе: Каролина – Сиэтл
+✔ NHL Global Series
    12 и 14.11.2026 · Хоккей. НХЛ в Европе
    Место: Хельсинки
    Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
@@ -566,7 +566,7 @@
    Место: Челябинск, «Трактор»
    Линия: https://melbet.ru/ru/sport
 
-✔ НХЛ в Европе: Оттава – Чикаго
+✔ NHL Global Series
    18 и 20.12.2026 · Хоккей. НХЛ в Европе
    Место: Дюссельдорф
    Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
@@ -596,7 +596,7 @@
    Место: Оберстдорф, Гармиш-Партенкирхен, Инсбрук, Бишофсхофен
    Линия: https://melbet.ru/ru/sport
 
-✔ НХЛ на открытом воздухе: Юта – Колорадо
+✔ Winter Classic
    31.12.2026 · Хоккей. НХЛ
    Место: Солт-Лейк-Сити, Rice-Eccles Stadium
    Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
@@ -650,7 +650,7 @@
    Место: Германия, финал — Кёльн
    Линия: https://melbet.ru/ru/sport/pre-match/handball
 
-✔ NBA в Европе: Сан-Антонио – Новый Орлеан
+✔ NBA в Париже и Манчестере
    14 и 17.01.2027 · Баскетбол. NBA
    Место: Accor Arena / Co-op Live
    Линия: https://melbet.ru/ru/sport/sports/basketball-usa-nba?filter=eyJxIjoie1wiNFwiOntcIjcwOVwiOls5OThdfX0ifQ==
@@ -763,7 +763,7 @@
    Место: Финикс
    Линия: https://melbet.ru/ru/sport/sports/basketball-usa-nba?filter=eyJxIjoie1wiNFwiOntcIjcwOVwiOls5OThdfX0ifQ==
 
-✔ НХЛ на стадионе: Даллас – Вегас
+✔ Stadium Series
    20.02.2027 · Хоккей. НХЛ
    Место: Арлингтон, AT&T Stadium
    Линия: https://melbet.ru/ru/sport/sports/ice-hockey-usa-nhl?filter=eyJxIjoie1wiMTBcIjp7XCI3MTBcIjpbMjkwM119fSJ9
