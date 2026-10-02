@@ -1,0 +1,55 @@
+<div class="page">
+    <a class="bonus" href="#" data-bonus>
+      <picture>
+        <source media="(max-width: 720px)" srcset="https://raw.githubusercontent.com/AnastasiyaMakarenko/mb-sports-calendar/main/img/bonus-mobile.webp">
+        <img src="https://raw.githubusercontent.com/AnastasiyaMakarenko/mb-sports-calendar/main/img/bonus-desktop.webp" alt="Фрибет новым игрокам на первый депозит до 25 000 RUB" width="2000" height="190">
+      </picture>
+    </a>
+
+    <main class="sheet">
+      <header class="hero">
+        <div class="hero__text">
+          <h1 class="hero__title">Календарь<br>спортивных<br>событий</h1>
+          <p class="hero__lead">Не ломай голову — выбирай, на что поставить в&nbsp;2026–2027&nbsp;году</p>
+        </div>
+        <div class="hero__art">
+          <img src="https://raw.githubusercontent.com/AnastasiyaMakarenko/mb-sports-calendar/main/img/hero.webp" alt="Календарь МБ 2026/27" width="1476" height="900">
+        </div>
+      </header>
+
+      <!-- Все фильтры спрятаны под одну кнопку -->
+      <section class="filters" aria-label="Фильтры">
+        <button class="fbtn" id="mbc-filtersBtn" type="button" aria-expanded="false" aria-controls="fpanel">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M3 5h18v2.2l-7 6.6V21l-4-2.2v-5l-7-6.6V5Z"/></svg>
+          Фильтры<span class="fbtn__n" id="mbc-filtersCount" hidden></span>
+        </button>
+        <button class="reset" id="mbc-resetBtn" type="button" hidden>Сбросить</button>
+
+        <div class="fpanel" id="mbc-fpanel" hidden>
+          <div class="fpanel__head">
+            <b>Фильтры</b>
+            <button class="fpanel__close" id="mbc-filtersClose" type="button" aria-label="Закрыть">×</button>
+          </div>
+
+          <div class="fgroup">
+            <span class="fgroup__t">Виды спорта</span>
+            <div class="chips" id="mbc-sportChips"></div>
+          </div>
+
+          <div class="fpanel__foot">
+            <button class="btn btn--ghost" id="mbc-resetBtn2" type="button">Сбросить всё</button>
+            <button class="btn btn--dark" id="mbc-filtersApply" type="button">Показать</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Месяцы и турниры -->
+      <section class="block" id="calendar">
+        <nav class="months" id="mbc-months" aria-label="Месяцы"></nav>
+        <h2 class="h2" id="mbc-listTitle"></h2>
+        <div class="cards" id="mbc-cards"></div>
+        <p class="empty" id="mbc-cardsEmpty" hidden>Событий не найдено — попробуйте сбросить фильтры.</p>
+        <button class="more-btn" id="mbc-moreCards" type="button" hidden></button>
+      </section>
+    </main>
+  </div>

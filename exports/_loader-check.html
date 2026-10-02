@@ -1,8 +1,13 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Проверка загрузчика</title>
+<style>body{margin:0;font-family:Georgia,serif;color:#333;text-align:center}.host{padding:16px;background:#eee}</style>
+</head><body>
+<div class="host">Страница сайта до блока</div>
 <!-- Календарь спортивных событий. Вставить один раз; обновления приходят сами. -->
 <div id="mbc">Загружаем календарь…</div>
 <script>
 (function () {
-  var BASE = 'https://raw.githubusercontent.com/AnastasiyaMakarenko/mb-sports-calendar/main/embed/';
+  var BASE = 'http://localhost:8765/embed/';
   var box = document.getElementById('mbc');
   function get(file) {
     return fetch(BASE + file + '?t=' + Date.now()).then(function (r) {
@@ -25,3 +30,6 @@
     });
 })();
 </script>
+
+<div class="host">Страница сайта после блока</div>
+</body></html>
