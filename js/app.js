@@ -106,7 +106,20 @@
   function monthBounds(key) { return [key + '-01', key + '-' + pad(daysIn(+key.slice(0, 4), +key.slice(5, 7)))]; }
   function overlaps(e, a, b) { return e.st <= b && e.en >= a; }
   function grad(c) { var g = COLORS[c] || ['#444', '#111']; return 'linear-gradient(135deg,' + g[0] + ' 0%,' + g[1] + ' 100%)'; }
-  function byPopularity(a, b) { return (b.i - a.i) || ((a.rank || 99) - (b.rank || 99)) || ((a.season ? 1 : 0) - (b.season ? 1 : 0)) || (a.st < b.st ? -1 : 1); }
+  /* Порядок выдачи внутри месяца: еврокубки → топ-5 лиг → Эль Класико → всё остальное.
+     Внутри каждой группы — по популярности, как раньше. */
+  var TOP5 = { epl: 1, laliga: 1, seriea: 1, bundesliga: 1, ligue1: 1 };
+  var CLASICO = { clasico1: 1, clasico2: 1 };
+  function tier(e) {
+    if (e.g && e.g.indexOf('Еврокубки') > -1) return 0;
+    if (TOP5[e.id]) return 1;
+    if (CLASICO[e.id]) return 2;
+    return 3;
+  }
+  function byPriority(a, b) {
+    return (tier(a) - tier(b)) || (b.i - a.i) || ((a.rank || 99) - (b.rank || 99)) ||
+      ((a.season ? 1 : 0) - (b.season ? 1 : 0)) || (a.st < b.st ? -1 : 1);
+  }
   function activeCount() { return Object.keys(state.sports).length; }
 
   /* ---------- Фильтрация: только по видам спорта ---------- */
@@ -162,7 +175,7 @@
   function renderList() {
     var b = monthBounds(state.month);
     var m = +state.month.slice(5, 7), y = state.month.slice(0, 4);
-    var list = EVENTS.filter(function (e) { return pass(e) && overlaps(e, b[0], b[1]); }).sort(byPopularity);
+    var list = EVENTS.filter(function (e) { return pass(e) && overlaps(e, b[0], b[1]); }).sort(byPriority);
     $('#listTitle').textContent = MONTHS_NOM[m - 1] + ' ' + y;
     $('#cardsEmpty').hidden = list.length > 0;
     $('#cards').innerHTML = list.slice(0, state.shown).map(cardHtml).join('');

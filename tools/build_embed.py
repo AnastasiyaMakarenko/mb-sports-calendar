@@ -151,7 +151,19 @@ script = '''(function () {
     return '<svg class="card__ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" ' +
       'stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[e.s] || ICONS.football) + '</svg>';
   }
-  function byPop(a, b) { return (b.i - a.i) || ((a.rank || 99) - (b.rank || 99)) || ((a.season ? 1 : 0) - (b.season ? 1 : 0)) || (a.st < b.st ? -1 : 1); }
+  /* Порядок выдачи внутри месяца: еврокубки -> топ-5 лиг -> Эль Класико -> всё остальное */
+  var TOP5 = { epl: 1, laliga: 1, seriea: 1, bundesliga: 1, ligue1: 1 };
+  var CLASICO = { clasico1: 1, clasico2: 1 };
+  function tier(e) {
+    if (e.g && e.g.indexOf('Еврокубки') > -1) return 0;
+    if (TOP5[e.id]) return 1;
+    if (CLASICO[e.id]) return 2;
+    return 3;
+  }
+  function byPop(a, b) {
+    return (tier(a) - tier(b)) || (b.i - a.i) || ((a.rank || 99) - (b.rank || 99)) ||
+      ((a.season ? 1 : 0) - (b.season ? 1 : 0)) || (a.st < b.st ? -1 : 1);
+  }
   function active() { return Object.keys(state.sports).length; }
   function pass(e) { return !active() || !!state.sports[e.s]; }
 
