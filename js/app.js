@@ -106,15 +106,19 @@
   function monthBounds(key) { return [key + '-01', key + '-' + pad(daysIn(+key.slice(0, 4), +key.slice(5, 7)))]; }
   function overlaps(e, a, b) { return e.st <= b && e.en >= a; }
   function grad(c) { var g = COLORS[c] || ['#444', '#111']; return 'linear-gradient(135deg,' + g[0] + ' 0%,' + g[1] + ' 100%)'; }
-  /* Порядок выдачи внутри месяца: еврокубки → топ-5 лиг → Эль Класико → всё остальное.
+  /* Порядок выдачи внутри месяца:
+     еврокубки → топ-5 лиг → Эль Класико → РПЛ → НХЛ и НБА → всё остальное.
      Внутри каждой группы — по популярности, как раньше. */
   var TOP5 = { epl: 1, laliga: 1, seriea: 1, bundesliga: 1, ligue1: 1 };
   var CLASICO = { clasico1: 1, clasico2: 1 };
+  var NHL_NBA = { nhl: 1, stanley: 1, nba: 1, nbapo: 1 };
   function tier(e) {
     if (e.g && e.g.indexOf('Еврокубки') > -1) return 0;
     if (TOP5[e.id]) return 1;
     if (CLASICO[e.id]) return 2;
-    return 3;
+    if (e.id === 'rpl') return 3;
+    if (NHL_NBA[e.id]) return 4;
+    return 5;
   }
   function byPriority(a, b) {
     return (tier(a) - tier(b)) || (b.i - a.i) || ((a.rank || 99) - (b.rank || 99)) ||

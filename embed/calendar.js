@@ -115,14 +115,19 @@
     return '<svg class="card__ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" ' +
       'stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[e.s] || ICONS.football) + '</svg>';
   }
-  /* Порядок выдачи внутри месяца: еврокубки -> топ-5 лиг -> Эль Класико -> всё остальное */
+  /* Порядок выдачи внутри месяца:
+     еврокубки -> топ-5 лиг -> Эль Класико -> РПЛ -> НХЛ и НБА -> всё остальное.
+     Внутри каждой группы — по популярности, как раньше. */
   var TOP5 = { epl: 1, laliga: 1, seriea: 1, bundesliga: 1, ligue1: 1 };
   var CLASICO = { clasico1: 1, clasico2: 1 };
+  var NHL_NBA = { nhl: 1, stanley: 1, nba: 1, nbapo: 1 };
   function tier(e) {
     if (e.g && e.g.indexOf('Еврокубки') > -1) return 0;
     if (TOP5[e.id]) return 1;
     if (CLASICO[e.id]) return 2;
-    return 3;
+    if (e.id === 'rpl') return 3;
+    if (NHL_NBA[e.id]) return 4;
+    return 5;
   }
   function byPop(a, b) {
     return (tier(a) - tier(b)) || (b.i - a.i) || ((a.rank || 99) - (b.rank || 99)) ||
