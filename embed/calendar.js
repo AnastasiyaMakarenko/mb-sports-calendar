@@ -4,7 +4,7 @@
   var $ = function (id) { return root.querySelector('#mbc-' + id); };
   var CARDS_STEP = 12;
   var LINE_URL = 'https://melbet.ru/ru/sport';
-  var BONUS_URL = '#';
+  var BONUS_URL = 'https://melbet.ru/ru/sport/popup/registration';
   var COLORS = {
     rpl: ['#7b2ff7', '#e0245e'], cup: ['#c81d4e', '#6a11cb'], rus: ['#1d4ed8', '#dc2626'],
     epl: ['#6a11cb', '#b02fd8'], facup: ['#1e40af', '#3b82f6'], laliga: ['#ff4b2b', '#e11d48'],

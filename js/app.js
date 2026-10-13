@@ -3,7 +3,7 @@
 
   /* ---------- Настройки ---------- */
   var LINE_URL = 'https://melbet.ru/ru/sport'; // запасная ссылка, если у события нет своей
-  var BONUS_URL = '#';         // ссылка кнопки «Забрать бонус»
+  var BONUS_URL = 'https://melbet.ru/ru/sport/popup/registration'; // куда ведёт верхний баннер
   var FIRST_MONTH = '2026-09';
   var LAST_MONTH = '2027-12';
   var CARDS_STEP = 12;         // сколько карточек показывать сразу
